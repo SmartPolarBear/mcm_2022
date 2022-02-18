@@ -43,6 +43,8 @@
 \newcommand{\PaperTitle}{To Harvest More: Achieving Best Trading Strategies on Gold and Bitcoins}  % Change your paper title here
 %%%%%%%%%%%%%
 
+\newcommand{\DecisionAlgorithm}{reinforcement learning}
+
 
 %% Page header and footer setting
 \usepackage{fancyhdr}
@@ -99,17 +101,8 @@
 % Enter your summary here replacing the (red) text
 % Replace the text from here ...
 
-\textcolor{red}{%
-Use this template to begin typing the first page (summary page) of your electronic report. This \newline
-template uses a 12-point Times New Roman font. Submit your paper as an Adobe PDF \newline
-electronic file (e.g. 1111111.pdf), typed in English, with a readable font of at least 12-point type.	\\[2ex]
-Do not include the name of your school, advisor, or team members on this or any page.	\\[2ex]
-Papers must be within the page limit specified in the problem statement.	\\[2ex]
-Be sure to change the control number and problem choice above.	\\
-You may delete these instructions as you begin to type your report here. 	\\[2ex]
-\textbf{Follow us @COMAPMath on Twitter or COMAPCHINAOFFICIAL on Weibo for the \newline
-most up to date contest information.}
-}
+Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible combo. Our team is requested to determine the trading strategies for a trader which uses only the past daily prices. We accomplish the task by finishing the following sub-tasks. 
+
 
 
 
@@ -152,14 +145,16 @@ most up to date contest information.}
 \label{Problem_Statement}
 
 \subsection{Problem Background}
-As the popularity of financial knowledge grows, many of the population, more or less, become market traders. Some of them expect to outperform inflation while others want to create wealth. By buying and selling volatile assets frequently, market traders pursue a goal to maximize their total return. Gold and bitcoins enjoys great popularity these days for their complementary characteristics in risk and value. Gold is stable in price and has lower risk while the value of bitcoins varies greatly and thus has a higher risk, as is shown in Figure \ref{figure:prices2in1}. Regarding to trading rules, Gold is only traded on days the market is open while bitcoins are traded everyday. For both of them, commissions are charged to make each transaction.
+With the popularity of cryptocurrencies and the simplification of trading methods, more of the population become market traders. Some of them expect to outperform inflation, while others want to create wealth. By buying and selling volatile assets frequently, market traders pursue a goal to maximize their total return. Gold and bitcoins enjoy great popularity these days for their complementary characteristics in risk and value. Gold is stable in price and has lower risk while the value of bitcoins varies greatly and thus has a higher risk, as is shown in Figure \ref{figure:prices2in1}.
 
 \begin{figure}[H]
 	\centering{\includegraphics[width=17.0cm]{figures/prices_2in1.png}}
-	\caption{Gold and bitcoin daily prices, U.S. dollars per troy ounce and U.S. dollars per bitcoin. Source: London Bullion Market 
+	\caption{Gold and bitcoin daily prices, in U.S. dollars per troy ounce and U.S. dollars per bitcoin. \textbf{Source:} London Bullion Market 
 		Association, 9/11/2021 and NASDAQ, 9/11/2021 }
 	\label{figure:prices2in1}
 \end{figure}
+
+ Regarding trading rules, Gold is only traded on days the market is open while bitcoins are traded every day. Commissions are charged to make each transaction. For market traders to achieve their goals, they need to build a model to determine the strategies to manage their portfolios well.
 
 \subsection{Restatement of the Problem}
 
@@ -177,6 +172,12 @@ As the popularity of financial knowledge grows, many of the population, more or 
 
 \subsection{Our Approach}
 
+\begin{enumerate}
+	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\DecisionAlgorithm}, a Markov decision process.}
+	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. To take as many factors as possible and predict accurately according to their inner laws, we adopt this approach to predict the prices, which is proved to give satisfying results.
+	
+	\item 
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%
 \section{Assumptions and Justifications}
@@ -185,7 +186,12 @@ As the popularity of financial knowledge grows, many of the population, more or 
 \subsection{Assumptions}
 To simplify the problem stated above, we make following assumptions, each of which is justified properly: 
 \begin{enumerate}
-	\item \textbf{The market trader sells all of the gold and bitcoins by the end of the five-year trading period, i.e. 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoins, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
+	
+	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$,respectively.}
+
+
+	\item \textbf{The market trader sells all of the gold and bitcoins by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoins, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
+	
 \end{enumerate}
 
 
@@ -420,7 +426,21 @@ E.~W.~Frees, \textit{Regression Modeling with Actuarial and Financial Applicatio
 
 {\centering\section*{Memorandum to the Trader}}
 
-Write the letter here.
+Considering the intensely changing financial markets and the difficulty of handling your portfolio, using an appropriate model to make predictions and strategies to trade are of vital importance to improve income. It is a great honor for us to develop the model for you to buy, hold and sell your assets. Here is our model based on \textbf{\DecisionAlgorithm} and strategies for you to trade your assets effectively.  
+
+\begin{enumerate}
+	\item 
+	
+	\item
+	
+	\item
+\end{enumerate}
+
+We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoins, and we firmly believe that our model can be utilized in maximizing your total income. Feel free to contact us for further information on the proposal.
+
+Sincerely yours
+
+\textit{MCM 2022 Team}
 
 
 
