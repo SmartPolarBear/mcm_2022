@@ -40,10 +40,11 @@
 %%%%%%%%%%%%%
 \newcommand{\TeamNumber}{2208487}  % Fill your team number here
 \newcommand{\Problem}{C}  % Replace your team chosen problem here
-\newcommand{\PaperTitle}{To Harvest More: Achieving Best Trading Strategies on Gold and Bitcoins}  % Change your paper title here
+\newcommand{\PaperTitle}{To Harvest More: Best Trading Strategies on Gold and Bitcoins}  % Change your paper title here
 %%%%%%%%%%%%%
 
-\newcommand{\DecisionAlgorithm}{reinforcement learning}
+\newcommand{\Predictor}{ARIMA }
+\newcommand{\Decision}{XXX }
 
 
 %% Page header and footer setting
@@ -101,10 +102,18 @@
 % Enter your summary here replacing the (red) text
 % Replace the text from here ...
 
-Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible combo. Our team is requested to determine the trading strategies for a trader which uses only the past daily prices. We accomplish the task by finishing the following sub-tasks. 
+Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible combo. Our team is requested to determine the trading strategies for a trader which uses only the past daily prices. 
+
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. The predictor shows good capability to accurately predict the price of future. Price data from 2016 to 2019 is used to train the model. Then for position management, \Decision is used to decide to sell, buy or hold each asset.
+
+As for problem 2, we
+
+As for problem 3, we
+
+Finally
 
 
-
+\textbf{Key words:} 
 
 \end{spacing}
 
@@ -165,7 +174,7 @@ With the popularity of cryptocurrencies and the simplification of trading method
 	
 	\item Present evidence that your model provides the best strategy.
 	
-	\item Determine how sensitive the strategy is to transaction costs and analyze how transaction costs
+	\item Determine how sensitive the strategy is to transaction costs and analyze how the costs
 	affect the strategy and results.
 	
 \end{itemize}
@@ -173,8 +182,8 @@ With the popularity of cryptocurrencies and the simplification of trading method
 \subsection{Our Approach}
 
 \begin{enumerate}
-	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\DecisionAlgorithm}, a Markov decision process.}
-	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. To take as many factors as possible and predict accurately according to their inner laws, we adopt this approach to predict the prices, which is proved to give satisfying results.
+	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\Predictor} (Autoregressive integrated moving average).}
+	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt this approach to predict the prices, which is proved to give satisfying results.
 	
 	\item 
 \end{enumerate}
@@ -187,7 +196,7 @@ With the popularity of cryptocurrencies and the simplification of trading method
 To simplify the problem stated above, we make following assumptions, each of which is justified properly: 
 \begin{enumerate}
 	
-	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$,respectively.}
+	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$, respectively.}
 
 
 	\item \textbf{The market trader sells all of the gold and bitcoins by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoins, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
@@ -197,126 +206,75 @@ To simplify the problem stated above, we make following assumptions, each of whi
 
 \subsection{Symbols and Definitions}
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{1.5}
-\caption{Symbols and Definitions.}
-\label{Table_Symbols}
-\begin{center}
-{\footnotesize
-\begin{tabular}{c c}
-\toprule
-{Notations} & {Description} \\
-\midrule
-{$\eta$}    & {1} \\ 
-{$\xi$}     & {} \\ 
-$P$   & {} \\ 
-$r$     & {} \\
-$x$     & {} \\ 
-$X$     & {} \\ 
-$N$    & {} \\ 
-$n$     & {} \\ 
-\bottomrule
-\end{tabular}}
-\end{center}
-\end{table}
 
 
 \subsection{Symbols and Definitions}
 
-\begin{table}[h]
-\renewcommand{\arraystretch}{1.2}
-\begin{center}
-{\footnotesize
-\begin{tabular}{c l}
-\toprule
-{Notations} & {Description} \\
-\midrule
-$a$    & {Persuasion of comments} \\
-$s(X\rightarrow Y)$  &  {Degree of support between $X$ and $Y$,  indicating how often the rules can be used for analysis}\\
-$c(X\rightarrow Y)$  &  {Confidence between $X$ and $Y$, indicating the frequency of transactions in $Y$ containing $X$} \\
-$X$ & {Promotion/The `verified purchase' is `N'} \\
-$\overline{X}$ & {No promotion or The `verified purchase' is `Y'} \\
-$Y$ & {Poor feedback} \\
-$\overline{Y}$ & {Favourable feedback} \\
-$Z$ & {Poor evaluation support rate} \\
-$\overline{Z}$ & {Favourable support rate} \\
-$f_{V}$ & {Amount of platform commentators} \\
-$f_{\overline{V}}$ & {Amount of common customers} \\
-$a_{V}$ & {Support rate of comments written by writers} \\
-$a_{\overline{V}}$ & {Support rate of comments written by non writers} \\
-$a_{T}$ & {Overall weighted support rate} \\
-$Q_\mu(v)$ & {Amount of comments, dependent variable in multiple linear regression} \\
-$\mu_i$ & {Regression coefficient of multiple linear regression, $\lbrace i=0, 1, 2, 3 \rbrace$} \\
-$v_i$ & {Independent variable of multiple linear regression, $\lbrace i=0, 1, 2, 3 \rbrace$} \\
-$v_1$ & {Amount of no promotions in monthly reviews} \\
-$v_2$ & {Number of disapproval of poor feedback and approval of favorable feedback in each month} \\
-$v_3$ & {Frequency of good keywords in each month} \\
-$\xi$ & {Random error term of multiple linear regression} \\
-$r^2$ & {Sample determination coefficient discrimination coefficient} \\
-$SSR$ & {Regression sum of squares} \\
-$SST$ & {Sum of squares of total variation} \\
-$T$   & {Weighted mean value of star rating in the train set}\\
-$\widetilde{T}$  & {Weighted mean value of star rating in the testing set}\\
-$\textbf{std}$  &  {Standard deviation of the result in training set and testing set}\\
-$D$ & {Future value of products} \\
-$\varphi$ & {Weighted star rating} \\
-$\delta$ & {The rate of positive keywords in reviews} \\
-\bottomrule
-\end{tabular}}
-\end{center}
-\end{table}
+
 
 
 
 %%%%%%%%%%%%%%%%%
-\section{Mathematical Models}
+\section{Mathematical Modeling}
 \label{MathModels}
 
 
-\subsection{Basic Model}
+\subsection{Data Preprocessing}
 
-\begin{equation}
-\sum\limits_t
-\label{Eqn:1}
-\end{equation}
+There are some missing value in the provided data of gold prices, as is shown in Figure \ref{figure:missing}.
 
-According to Equation (\ref{Eqn:1})
+\begin{figure}[H]
+	\centering{\includegraphics[width=17.0cm]{figures/missing.png}}
+	\caption{ Data-dense view }
+	\label{figure:missing}
+\end{figure}
 
-\begin{equation}
-\left\{ {\begin{array}{*{20}{l}}
-{\frac{{d{S_2}}}{{dt}} =  - {R_0} \cdot {S_2}({I_1} + {I_2})}\\
-{\frac{{d{I_2}}}{{dt}} = {R_0} \cdot {S_2}({I_1} + {I_2}) - \frac{{{I_2}}}{r}}\\
-{\frac{{d{S_1}}}{{dt}} = \rho \left[ {1 - \frac{{{S_1} + (1 + v/r){I_1}}}{{{K_1}}}} \right] - {R_0} \cdot {S_1}({I_1} + {I_2}) - v \cdot {S_1}}\\
-{\frac{{d{I_1}}}{{dt}} = {R_0} \cdot {S_1}({I_1} + {I_2}) - \frac{{{I_1}}}{{r + v}}}
-\end{array}} \right.
-\end{equation}
+The data-dense view reveals that in the price column named USD (PM), there are some missing values roughly in the end of each year. Carefully inspecting the data, we found there is two missing values each year, one is the last day and one is the fourth day from the last.
 
-\subsection{Improved Model}
+\begin{figure}[H]
+	\caption{Filling the missing data around 12/22/2017 and 12/29/2017 }
+	\label{figure:fill_missing}
+	\centering
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=8cm]{figures/example_missing.png}
+		\caption{Before}
+	\end{minipage}
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=8cm]{figures/fill_missing.png}
+		\caption{After}
+	\end{minipage}
+\end{figure}
 
-Additional assumptions for the model improvement
+ To make up the them, moving median method is used, where the length of window is 5. For each missing value $v_0$, we chose a window $$v_{-2},v_{-1},v_0,v_1,v_2$$
+ Where $v_{-2}$, $v_{-1}$ are the predecessors of $v_0$ and $v_1$,$v_2$ are the successors of $v_0$.
+ Then, we let the value of $v_0$ be the \textit{median} of $\{v_{-2},v_{-1},v_1,v_2\}$. 
+ 
+ 
+ The method is commonly used when only a few values are missing, which is fast and fit in the trend of the provided data well, as is shown in the Figure \ref{figure:fill_missing}. 
+
+\subsection{Feature Engineering}
+Feature engineering, also known as feature extraction, extracts features from raw data using domain knowledge. By feature engineering, we will improve the quality of result from the following machine learning process. Here are techniques we used for feature engineering:
+
+\subsubsection{Fractionally Differentiated Features}
 
 
-%%  Pseudo-code
-\begin{algorithm}  
-    \caption{Competitive selection}  
-    \label{CompetitiveSeedSelectionAlgorithm}
-    
-    \KwIn{{the set of data patterns $\mathbb{X}$} }
-    \KwOut{the set of prototype seeds $\mathbb{S}^*$}
-    Compute the Euclidean distance $dist \left( {\bold{x}_m}, {\bold{x}_n} \right)$ \\  
-    Compute the density $D( {\bold{x}_m} ) \ge \gamma$ \\ 
-    Select eligible $\bold{x}_m$ for the candidate seed set $\mathbb{C}^0 \gets \left\{  \bold{x}_m \left| \; C( {\bold{x}_m}, \gamma ) = 1\right. \right\}$ \\ 
-    Initialize $\mathbb{C}^* \gets \mathbb{C}^0$\\
-    \While{$\mathbb{C}^* \neq \phi$}  
-    { 
-      Initialize $\mathbb{S}^j \gets \mathbb{S}^*$ \\
-      Select the winning seed from the candidate set $\bold{x}_s^j \gets \mathop {\arg \max } D({\bold{x}_m})$, ${\bold{x}_m} \in \mathbb{C}^j$ \\
-      Update $\mathbb{S}^* \gets \mathbb{S}^j \cup \{ \bold{x}_s^j \}$ \\
-      Update $j \gets j + 1$ \\
-    }
-    return $\mathbb{S}^*$ \\
-\end{algorithm} 
+\subsection{\Predictor Tuning}
 
+\subsubsection{Multiple Features or Single Feature}
+
+\subsubsection{Finite Difference or Not}
+
+\subsubsection{Long Difference Period or Short}
+
+\subsubsection{Long Retrospective Cycle or Short}
+
+\subsection{Position Management and Risk Management}
+
+\subsubsection{Kelly Formula}
+
+\subsubsection{Bolling Filter}
 
 %%%%%%%%%%%%%%%%%
 \section{Results and Solutions}
@@ -329,24 +287,17 @@ Discussions
 
 
 %%%%%%%%%%%%%%%%%
-\section{Model Evaluation and Sensitivity Analysis}
-\label{ModelEvaluation_SensitivityAnalysis}
+\section{Model Evaluation}
+\label{ModelEvaluation}
 
+\subsection{Annualized Return}
 
+\subsection{Retracement}
 
-\subsection{Model Evaluation}
+\subsection{Sharp Rate}
 
-
-\begin{figure}[H]
-\centering{\includegraphics[width=8.0cm]{Figure_MCM_ICM_Flyer.png}}
-\caption{Figure illustration.}
-\label{Figure_Flyer}
-\end{figure}
-
-
-
-\subsection{Sensitivity Analysis}
-
+\section{Sensitivity Analysis}
+\label{SensitivityAnalysis}
 
 %%%%%%%%%%%%%%%%%
 \section{Strength and Weakness}
@@ -379,7 +330,7 @@ The models have the following weaknesses:
 \section{Conclusions}
 \label{Conclusions}
 
-
+In this paper, we build a \Predictor based predictor to enhance the income of trading cash, gold, and bitcoins. First, we preprocess the data and fill the missing values. Then, we finish the feature engineering by finite difference and feature store to boost the machine learning effect. After that, we use a RNN-based \Predictor to predict the price. Finally, we reach the optimality of our model by compare different trading strategies. Sensitive tests and evaluation are carried out. We measured our model by annualized return, retracement and sharp rate. The influence of commissions are experimented to test the sensitivity. Our model yields satisfying results.
 
 
 
@@ -426,7 +377,7 @@ E.~W.~Frees, \textit{Regression Modeling with Actuarial and Financial Applicatio
 
 {\centering\section*{Memorandum to the Trader}}
 
-Considering the intensely changing financial markets and the difficulty of handling your portfolio, using an appropriate model to make predictions and strategies to trade are of vital importance to improve income. It is a great honor for us to develop the model for you to buy, hold and sell your assets. Here is our model based on \textbf{\DecisionAlgorithm} and strategies for you to trade your assets effectively.  
+Considering the intensely changing financial markets and the difficulty of handling your portfolio, using an appropriate model to make predictions and strategies to trade are of vital importance to improve income. It is a great honor for us to develop the model for you to buy, hold and sell your assets. Here is our model based on \textbf{\Predictor} and strategies for you to trade your assets effectively.  
 
 \begin{enumerate}
 	\item 
