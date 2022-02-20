@@ -9,6 +9,7 @@
 \usepackage{subfigure}
 \usepackage{epsfig}
 \usepackage{float}
+\usepackage{mfirstuc}
 
 \usepackage{booktabs}
 \usepackage{threeparttable}
@@ -44,8 +45,8 @@
 %%%%%%%%%%%%%
 
 \newcommand{\Predictor}{ARIMA }
-\newcommand{\Decision}{XXX }
-
+\newcommand{\Decision}{Markowitz mean-variance model }
+\newcommand{\DecisionAssessment}{Sharp ratio}
 
 %% Page header and footer setting
 \usepackage{fancyhdr}
@@ -185,7 +186,7 @@ With the popularity of cryptocurrencies and the simplification of trading method
 	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\Predictor} (Autoregressive integrated moving average).}
 	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt this approach to predict the prices, which is proved to give satisfying results.
 	
-	\item 
+	\item \textbf{To make decision on trading, we adopt \textit{\Decision} and \textit{\DecisionAssessment}. }
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%
@@ -254,27 +255,15 @@ The data-dense view reveals that in the price column named USD (PM), there are s
  
  The method is commonly used when only a few values are missing, which is fast and fit in the trend of the provided data well, as is shown in the Figure \ref{figure:fill_missing}. 
 
-\subsection{Feature Engineering}
-Feature engineering, also known as feature extraction, extracts features from raw data using domain knowledge. By feature engineering, we will improve the quality of result from the following machine learning process. Here are techniques we used for feature engineering:
-
-\subsubsection{Fractionally Differentiated Features}
+\subsection{Metric Calculating}
 
 
-\subsection{\Predictor Tuning}
 
-\subsubsection{Multiple Features or Single Feature}
+\subsection{\Predictor Predictor}
 
-\subsubsection{Finite Difference or Not}
+\subsection{Differentiating}
 
-\subsubsection{Long Difference Period or Short}
 
-\subsubsection{Long Retrospective Cycle or Short}
-
-\subsection{Position Management and Risk Management}
-
-\subsubsection{Kelly Formula}
-
-\subsubsection{Bolling Filter}
 
 %%%%%%%%%%%%%%%%%
 \section{Results and Solutions}
