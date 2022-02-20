@@ -106,7 +106,9 @@
 
 Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible combo. Our team is requested to determine the trading strategies for a trader which uses only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. The predictor shows good capability to accurately predict the price of future. Price data from 2016 to 2019 is used to train the model. Then for position management, \Decision is used to decide to sell, buy or hold each asset.
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. The predictor shows good capability to accurately predict the price of future.
+
+To find the best timing to sell and buy the two assets, we first rate them with the percentage change, based on predicted value. Then we accomplish position management with Markowitz model. The choice we made yields good income.
 
 As for problem 2, we
 
@@ -198,6 +200,8 @@ With the popularity of cryptocurrencies and the simplification of trading method
 To simplify the problem stated above, we make following assumptions, each of which is justified properly: 
 \begin{enumerate}
 	
+	\item \textbf{The trader does not have a bias towards a lower risk.} The two given assests, gold and bitcoin, differs a lot in risk. To simplify the problem, we assume that the trader will not prefer lower risk than higher and only cares about higher income.
+	
 	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$, respectively.}
 
 
@@ -260,13 +264,13 @@ An $n$ day's MA is the average of the price today and the previous $n-1$ days. P
 
 \subsection{\Predictor Predictor}
 
-\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model. ARMA requires the mean function of the data to be stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function.
+\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model. ARMA requires the mean function of the data to be stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. 
 
 To apply the model, we first have to test the stationarity.
 
 \subsubsection{Augmented Dickey-Fuller Test}
 
-An  augmented Dickey–Fuller test (ADF) tests the null hypothesis that a unit root is present in a time series sample. it can test whether the data is stationary or trend-stationary.
+An augmented Dickey–Fuller test (ADF) tests the null hypothesis that a unit root is present in a time series sample. it can test whether the data is stationary or trend-stationary.
 
 \subsubsection{Finite Difference}
 
@@ -328,7 +332,7 @@ Though our model performs well, the models have following weaknesses:
 \begin{itemize}
 \item \textbf{We do not consider factors other than prices.}
 
-\item \textbf{The choice of our model's parameters relies on guess and grid search.}
+\item \textbf{The choice of our model's parameters relies on experience and grid search.}
 \end{itemize}
 
 
@@ -426,48 +430,6 @@ Sincerely yours
 	\caption{ Average Change in 5,10,15,20,25 days for gold }
 	\label{figure:gold_ac}
 \end{figure}
-
-\pagebreak
-
-\section*{Appendix: Programs and Codes}
-
-If you do not want to provide program codes, delete this appendix section.
-\\
-
-\lstset{
- columns=fixed,       
- numbers=left,                                        % 在左侧显示行号
- numberstyle=\tiny\color{gray},                       % 设定行号格式
- frame=single,                                         % 显示背景边框
- backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
- keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
- numberstyle=\footnotesize\color{darkgray},           
- commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
- stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
- showstringspaces=false,                              % 不显示字符串中的空格
- language=python,                                        % 设置语言
-}
-
-\begin{minipage}{1\linewidth}
-\small{
-\begin{lstlisting}
-import numpy as np
-import matplotlib.pyplot as plt
-
-x = np.array([-3.0, -2.9, -2.8, -2.7, -2.5, -2.4, -2.3, -2.2, -2.1, -2])
-y = np.sin(x)
-
-plt.figure()
-plt.xlabel("x axis")
-plt.ylabel("y axis")
-plt.plot(x, y, '-^')
-plt.xlim(min(x)-0.05, max(x)+0.05)
-plt.ylim(min(y)-0.05, max(y)+0.05)
-plt.legend(loc='best')
-plt.show()
-\end{lstlisting}
-}
-\end{minipage}
 
 
 \end{document}
