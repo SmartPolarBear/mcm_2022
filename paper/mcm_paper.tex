@@ -11,6 +11,7 @@
 \usepackage{float}
 \usepackage{mfirstuc}
 \usepackage{hyperref}
+\usepackage{amsmath}
 
 \usepackage{booktabs}
 \usepackage{threeparttable}
@@ -264,22 +265,96 @@ An $n$ day's MA is the average of the price today and the previous $n-1$ days. P
 
 \subsection{\Predictor Predictor}
 
-\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model. ARMA requires the mean function of the data to be stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. 
+\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model. ARMA requires the mean function of the data to be stationary, because history data of stationary series can be used to predict the future. But time series are not always stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. Figure \ref{figure:flow_chart} shows the procedure we take to build the \Predictor model.
+
+ \begin{figure}[H]
+ 	\centering{\includegraphics[width=16.0cm]{figures/flow_chart_arima.png}}
+ 	\caption{Procedure to Build ARIMA Model}
+ 	\label{figure:flow_chart}
+ \end{figure}
+
 
 To apply the model, we first have to test the stationarity.
 
 \subsubsection{Augmented Dickey-Fuller Test}
 
-An augmented Dickey–Fuller test (ADF) tests the null hypothesis that a unit root is present in a time series sample. it can test whether the data is stationary or trend-stationary.
+An augmented Dickey–Fuller test (ADF) is a kind of hypothesis test. The null hypothesis is 
+
+$$
+H_0 \ : \ A \ unit \ root \ is \ present \ in \ a \ time \ series \ sample.
+$$
+
+Subject to the $\chi^2$ distribution, we accept it when the observed value of the waviness of the series, $P$, also known as the $p-value$, satisfies
+
+$$
+P \ge 0.05
+$$
+
+It can test whether the data is stationary or trend-stationary. If the unit root is present in the series, the time-series is non-stationary.
+
+In the raw data, we found
+
+$$
+P_0=0.9042384812941653 > 0.05
+$$
+
+So we accept $H_0$. The raw time series is non-stationary.
+And in the first-order difference, we found
+
+$$
+P_1=9.269711421536524e-13 < 0.05
+$$
+
+The first-order difference is stationary, so we use it for our ARIMA model. The parameter $d$ of $ARIMA(p,d,q)$ is $d=1$.
 
 \subsubsection{Finite Difference}
 
+The difference of a function $y$ is defined as
+
+$$
+\Delta^k y_t = \Delta(\Delta^{k-1}y_t)=\Delta^{k-1}y_{t+1}-\Delta^{k-1}y_t=\Sigma_{i=0}^k(-1)^i C_k^iy_{t+k-1} \ (k=1,2,3,\dots)
+$$
+
+Specially, the first-order difference, which is commonly used in \Predictor model, is defined as
+
+$$
+\Delta y_t = y_{t+1} - y_{t}
+$$
+
+Finite difference is useful in processing non-stationary data.
+
 \subsubsection{Choice of Parameters}
 
+To select the best parameters of ARIMA model, we first rely on observation on PACF and ACF graph. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
+
 \subsubsection{Residual Test and Durbin-Watson Test}
-To test whether our model has extracted all information in the data, we use
+To test whether our model has extracted all information in the data, we inspect the residuals and test if they look like white noise. White noise residuals reveal that all information to predict has been extracted, so that we can utilize them to predict the future. And what is left is only random perturbation and is of no use for our \Predictor predictor. To carry out the test, we first plot the residuals and then carry our a Durbin-Watson(DW) test. The test results are as follows.
+
+\begin{enumerate}
+	\item \textbf{Residual Graph}
+	
+	\item \textbf{DW Test}
+	DW test is commonly used for test whether autocorrelation presents in the residuals from a regression analysis. The DW statistics has a null hypothesis
+	
+$$
+	H_0 \ : \ \rho = 0	
+$$
+	And the test statistic is
+	
+	\begin{equation}\label{eqn:d}
+		d \ = \ \frac{\Sigma_{t=2}^T(e_t-e_{t-1})^2}{\Sigma_{t=1}^T e_t^2}
+	\end{equation}
+
+	We calculate $d$ in equation \ref{eqn:d}, which is the approximation of $2(1-\hat{\rho})$, where $\hat{\rho}$ is the sample autocorrelation of the residuals. So $d=2$ indicates no autocorrelation. In our case, we calculate the value in by equation \ref{eqn:d}, and find
+	$$
+	d \ = \ 2.0179203733750732
+	$$
+	which is very close to 2, indicating very low autocorrelation. 
+\end{enumerate}
+
 
 \subsubsection{Predict the Change Using \Predictor}
+
 
 \subsection{Trade Decision}
 
@@ -287,10 +362,23 @@ To test whether our model has extracted all information in the data, we use
 
 \subsubsection{Position Management}
 
+\begin{figure}[H]
+	\centering{\includegraphics[width=8.0cm]{figures/markowiz_sim.png}}
+	\caption{Application of Markowiz Model}
+	\label{figure:markowiz}
+\end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%
 \section{Results and Solutions}
 \label{Results_Solutions}
+
+\begin{figure}[H]
+	\centering{\includegraphics[width=8.0cm]{figures/equity_change.png}}
+	\caption{Equity Change Result}
+	\label{figure:equity_change}
+\end{figure}
 
 Result analysis
 
@@ -352,6 +440,12 @@ In this paper, we build a \Predictor based predictor to enhance the income of tr
 %% \bibitem{label}
 %% Text of bibliographic item
 
+\bibitem{Du2021}
+Lin Hongmei,Du Jinyan,Zhang Shaodong. Sharpe ratio: estimation method, applicability and empirical analysis[J]. Journal of Statistics,2021,2(06):73-88.DOI:10.19820/j.cnki.issn2096-7411.2021.06.006.
+
+\bibitem{Sun2020}
+Sun, Lipo. An empirical study of Makowitz's portfolio theory based on Python[J]. Times Finance,2020(25):46-47+50.
+
 \bibitem{Pierre2020}
 Pierre Rostan,Alexandra Rostan,Mohammad Nurunnabi. Options trading strategy based on ARIMA forecasting[J]. PSU Research Review,2020.
 
@@ -361,6 +455,9 @@ Marcos Lopez dai Prado, \textit{Advances in Financial Machine} Learning[M]:75-82
 
 \bibitem{Li2017}
 Li F. Modelling the stock market using a multi-scale approach[D]. University of Leicester, 2017.
+
+\bibitem{Lin2016}
+Lin Xiaoming, A preliminary exploration of Huatai's multi-factor model system [R], Huatai Securities, 2016.
 
 \bibitem{Pang2005}
 Marling H, Emanuelsson S. The Markowitz Portfolio Theory[J]. November, 2012, 25: 2012.
@@ -381,13 +478,62 @@ Marling H, Emanuelsson S. The Markowitz Portfolio Theory[J]. November, 2012, 25:
 {\centering\section*{Memorandum to the Trader}}
 
 Considering the intensely changing financial markets and the difficulty of handling your portfolio, using an appropriate model to make predictions and strategies to trade are of vital importance to improve income. It is a great honor for us to develop the model for you to buy, hold and sell your assets. Here is our model based on \textbf{\Predictor} and strategies for you to trade your assets effectively.  
-
+	
 \begin{enumerate}
-	\item 
+	\item Our model calculates the required normalized factors using the closing price every day,including the change today, the average change of 15 days and the bias, for both bitcoin and gold. Then our model predict the price the next day with ARIMA model.
+	 
+	\item Based on the calculated values and our research, we calculate the indicators with the formula below for bitcoin and gold. 
 	
-	\item
+
+\begin{align*}
+	Trend \ indicator &= TI = 0.7 \times 30 \ day's \ average change \ + \ 0.3 \times 20 \ day's \ average \ bias \\
+	Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
+\end{align*}
 	
-	\item
+	Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz's asset portfolio model and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
+	
+	\item We set following thresholds for selling or buying bitcoin and gold in Table \ref{table:memo_threshold}.
+	
+	\begin{table}[H]
+		\renewcommand{\arraystretch}{1.5}
+		\caption{Trading Thresholds.}
+		\label{table:memo_threshold}
+		\begin{center}
+			{\footnotesize
+				\begin{tabular}{c c c}
+					\toprule
+					{ } & {Bitcoin} & {Gold} \\
+					\midrule
+					Buy($BS$) & 0.775 & 0.57 \\
+					Sell($SS$) & 0.55 & 0.3 \\
+					\bottomrule
+			\end{tabular}}
+		\end{center}	
+	\end{table}
+
+	Our model trades bitcoin and gold subject to the following rules.
+	
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c| } 
+			\hline
+			 & $MF_{bitcoin} > BS_{bitcoin}$ & $Others$ & $MF_{bitcoin} < SS_{bitcoin}$ \\ 
+			\hline
+			$MF_{gold} > BS_{gold}$ & \textbf{\textit{Further Judgment Required}}  & Buy gold & Sell bitcoin and buy gold  \\ 
+			\hline
+			Others & Buy bitcoin & Do nothing & Sell bitcoin \\
+			\hline
+			$MF_{gold} < SS_{gold}$ & Sell gold and buy bitcoin & Sell gold & Sell both \\ 
+			\hline
+		\end{tabular}
+	\end{center}
+
+	When further judgment is required, we come up with the following factor $F$ 
+	
+	$$
+	F=2.5 \times (MF_{bitcoin}-BS_{bitcoin})-(MF_{gold}-BS_{gold})
+	$$
+	
+	Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
 \end{enumerate}
 
 We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoins, and we firmly believe that our model can be utilized in maximizing your total income. Feel free to contact us for further information on the proposal.
