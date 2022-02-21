@@ -294,18 +294,37 @@ It can test whether the data is stationary or trend-stationary. If the unit root
 
 In the raw data, we found
 
-$$
-P_0=0.9042384812941653 > 0.05
-$$
+\begin{align*}
+	P_{0,bitcoin} &=0.8420802907198858 > 0.05 \\
+	P_{0,gold} &=0.9042384812941653 > 0.05 
+\end{align*}
+
 
 So we accept $H_0$. The raw time series is non-stationary.
 And in the first-order difference, we found
 
-$$
-P_1=9.269711421536524e-13 < 0.05
-$$
 
-The first-order difference is stationary, so we use it for our ARIMA model. The parameter $d$ of $ARIMA(p,d,q)$ is $d=1$.
+\begin{align*}
+	P_{1,bitcoin}=9.276161468079189e-13 < 0.05 \\
+	P_{1,gold}=9.269711421536524e-13 < 0.05
+\end{align*}
+
+The first-order difference is stationary, So we plot them in Figure \ref{fig:diff}. 
+
+\begin{figure*}
+	\begin{center}
+		\subfigure[Gold $1^{st}$ Order Difference]{
+			\includegraphics[width=6.0cm]{figures/gold_diff.png}
+		}
+		\subfigure[Bitcoin $1^{st}$ Order Difference]{
+			\includegraphics[width=6.0cm]{figures/btc_diff.png}
+		}
+		\caption{The $1^{st}$ Order Difference}
+		\label{fig:diff}
+	\end{center}
+\end{figure*}
+
+We also can see from the plot that it is stationary. Therefore, we use it for our ARIMA model. The parameter $d$ of $ARIMA(p,d,q)$ is $d=1$.
 
 \subsubsection{Finite Difference}
 
@@ -325,13 +344,58 @@ Finite difference is useful in processing non-stationary data.
 
 \subsubsection{Choice of Parameters}
 
-To select the best parameters of ARIMA model, we first rely on observation on PACF and ACF graph. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
+To select the best parameters of ARIMA model, we first rely on observation on PACF and ACF plot. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
+
+\begin{figure*}
+	\begin{center}
+		\subfigure[Gold ACF Plot]{
+			\includegraphics[width=6.0cm]{figures/gold_acf.png}
+		}
+		\subfigure[Bitcoin ACF Plot]{
+			\includegraphics[width=6.0cm]{figures/btc_acf.png}
+		}
+		\caption{ACF Plot for Gold and Bitcoin}
+	\end{center}
+\end{figure*}
+
+
+
+\begin{figure*}
+	\begin{center}
+		\subfigure[Gold PACF Plot]{
+			\includegraphics[width=6.0cm]{figures/gold_pacf.png}
+		}
+		\subfigure[Bitcoin PACF Plot]{
+			\includegraphics[width=6.0cm]{figures/btc_pacf.png}
+		}
+		\caption{PACF Plot for Gold and Bitcoin}
+	\end{center}
+\end{figure*}
+
+
+
 
 \subsubsection{Residual Test and Durbin-Watson Test}
-To test whether our model has extracted all information in the data, we inspect the residuals and test if they look like white noise. White noise residuals reveal that all information to predict has been extracted, so that we can utilize them to predict the future. And what is left is only random perturbation and is of no use for our \Predictor predictor. To carry out the test, we first plot the residuals and then carry our a Durbin-Watson(DW) test. The test results are as follows.
+To test whether our model has extracted all information in the data, we inspect the residuals and test if they look like white noise. White noise residuals reveal that all information to predict has been extracted, so that we can utilize them to predict the future. And what is left is only random perturbation and is of no use for our \Predictor predictor. To carry out the test, we first plot the residual Q-Q plot and then carry our a Durbin-Watson(DW) test. The test results are as follows.
 
 \begin{enumerate}
-	\item \textbf{Residual Graph}
+	\item \textbf{Residual Q-Q Plot}
+	A Quantile-Quantile plot (QQ-plot) shows the "match" of an observed distribution with a theoretical distribution, almost always the normal distribution. We plot the Q-Q plot and find that the residual distribution is roughly the same as the normal distribution, or is similar to white noise.
+	
+	\begin{figure}
+		\begin{center}
+			\subfigure[Gold Residual Q-Q Plot]{
+				\includegraphics[width=6.0cm]{figures/btc_arima_residual.png}
+			}
+			\subfigure[Bitcoin Residual Q-Q Plot]{
+				\includegraphics[width=6.0cm]{figures/gold_arima_residule.png}
+			}
+		\end{center}
+			\caption{Residual Q-Q Plot for Gold and Bitcoin}
+		\label{fig:qq_plot}
+	\end{figure}
+
+	We can see in Figure \ref{fig:qq_plot} that the scatters appears to be around a straight line, which indicates our parameters are good enough to predict the future.
 	
 	\item \textbf{DW Test}
 	DW test is commonly used for test whether autocorrelation presents in the residuals from a regression analysis. The DW statistics has a null hypothesis
@@ -345,7 +409,7 @@ $$
 		d \ = \ \frac{\Sigma_{t=2}^T(e_t-e_{t-1})^2}{\Sigma_{t=1}^T e_t^2}
 	\end{equation}
 
-	We calculate $d$ in equation \ref{eqn:d}, which is the approximation of $2(1-\hat{\rho})$, where $\hat{\rho}$ is the sample autocorrelation of the residuals. So $d=2$ indicates no autocorrelation. In our case, we calculate the value in by equation \ref{eqn:d}, and find
+	We calculate $d$ in equation \ref{eqn:d}, which is the approximation of $2(1-\hat{\rho})$, where $\hat{\rho}$ is the sample autocorrelation of the residuals. So $d=2$ indicates no autocorrelation. In our case, we calculate the values in by equation \ref{eqn:d}, and find
 	$$
 	d \ = \ 2.0179203733750732
 	$$
@@ -360,7 +424,64 @@ $$
 
 \subsubsection{Rating Gold and Bitcoin}
 
+Based on the closing price every day, we first calculates the required normalized factors using including the change today, and the average change of 15 days and the bias, for both bitcoin and gold. Then our model predict the price the next day with ARIMA model.
+	
+Then, we calculate the indicators with the formula below for bitcoin and gold. 
+	
+	
+\begin{align*}
+Trend \ indicator &= TI = 0.7 \times 30 \ day's \ average change \ + \ 0.3 \times 20 \ day's \ average \ bias \\
+Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
+\end{align*}
+	
+Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz's asset portfolio model and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
+	
+We set following thresholds for selling or buying bitcoin and gold in Table \ref{table:threshold}.
+	
+\begin{table}[H]
+		\renewcommand{\arraystretch}{1.5}
+		\caption{Trading Thresholds.}
+		\label{table:threshold}
+		\begin{center}
+			{\footnotesize
+				\begin{tabular}{c c c}
+					\toprule
+					{ } & {Bitcoin} & {Gold} \\
+					\midrule
+					Buy($BS$) & 0.775 & 0.57 \\
+					Sell($SS$) & 0.55 & 0.3 \\
+					\bottomrule
+			\end{tabular}}
+		\end{center}	
+\end{table}
+	
+Then, we trade bitcoin and gold subject to the following rules.
+	
+\begin{center}
+		\begin{tabular}{ |c|c|c|c| } 
+			\hline
+			& $MF_{bitcoin} > BS_{bitcoin}$ & $Others$ & $MF_{bitcoin} < SS_{bitcoin}$ \\ 
+			\hline
+			$MF_{gold} > BS_{gold}$ & \textbf{\textit{Further Judgment Required}}  & Buy gold & Sell bitcoin and buy gold  \\ 
+			\hline
+			Others & Buy bitcoin & Do nothing & Sell bitcoin \\
+			\hline
+			$MF_{gold} < SS_{gold}$ & Sell gold and buy bitcoin & Sell gold & Sell both \\ 
+			\hline
+		\end{tabular}
+\end{center}
+	
+When further judgment is required, we come up with the following factor $F$ 
+	
+$$
+F=2.5 \times (MF_{bitcoin}-BS_{bitcoin})-(MF_{gold}-BS_{gold})
+$$
+	
+Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
+
 \subsubsection{Position Management}
+
+
 
 \begin{figure}[H]
 	\centering{\includegraphics[width=8.0cm]{figures/markowiz_sim.png}}
@@ -391,6 +512,22 @@ Discussions
 \label{SensitivityAnalysis}
 
 For each transaction, a commission is charged. The commission can also have an impact on our model. We tested our model with different commissions and found that the level of commission does not significantly affect our model.
+
+ \begin{figure}[H]
+	\centering{\includegraphics[width=8.0cm]{figures/sensitive_test.jpg}}
+	\caption{Equity Change with Commissions}
+	\label{figure:sensitive_test}
+\end{figure}
+
+By changing commissions and recalculating the total assets we get, we plot Figure \ref{figure:sensitive_test}, from which we can draw the following conclusions
+
+\begin{enumerate}
+	\item Commissions may influence the equity change in the end, but the range is considered small, which reveals great stability of our model.
+	
+	\item From the figure we plot, we find that commissions for bitcoins have a stronger impact on the income. It is because to reach higher income, we hold more bitcoins so that when commissions go higher, we are charged much more.
+	
+	\item The given commissions is higher than the commissions in the real world, 0.02\% for bitcoin and 0.05\% for gold. When choosing the thresholds for trading, we can choose more suitable parameters and trade in lower frequencies to reduce frictional costs.
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%
 \section{Strength and Weakness}
@@ -536,7 +673,30 @@ Considering the intensely changing financial markets and the difficulty of handl
 	Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
 \end{enumerate}
 
-We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoins, and we firmly believe that our model can be utilized in maximizing your total income. Feel free to contact us for further information on the proposal.
+With above strategies, our model achieve great income. The performance of our model is as follows
+
+	\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\caption{Performance}
+	\label{table:memo_performance}
+	\begin{center}
+		{\footnotesize
+			\begin{tabular}{c c }
+				\toprule
+				Performance Indicator & Measurement\\
+				\midrule
+				Accumulated Equity & $1.03743 \times 10^6$ \\
+				Annualized Return & 1469.58\% \\
+				Maximum Dropdown & -53.90\% \\
+				Annualized Return/Dropdown Ratio & 27.77 \\
+				Sharpe Ratio & 1.1358 \\
+				\bottomrule
+		\end{tabular}}
+	\end{center}	
+\end{table}
+
+
+We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoins, and we firmly believe that our model can be utilized in your tradings to maximize your income. Feel free to contact us for further information on the proposal.
 
 Sincerely yours
 
