@@ -106,7 +106,7 @@
 
 Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is $ARIMA(4,1,4)$ for both bitcoin and gold. Our $ARIMA(4,1,4)$-based predictor shows good capability to accurately predict the price of future.
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \textbf{\Predictor} to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is $\mathbf{ARIMA}(4,1,4)$ for both bitcoin and gold. Our $\mathbf{ARIMA}(4,1,4)$-based predictor shows good capability to accurately predict the price of future.
 
 To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by three important factors:
 
@@ -127,7 +127,7 @@ As for problem 3, we test our model by change the commissions for trading bitcoi
 
 
 
-\textbf{Key words: ARIMA, Regression, Quantitative Trading, Trading Strategy, Markowiz Portfolio Theory} 
+\textbf{Key words: ARIMA, Regression, Trading Strategy, Markowiz Portfolio Theory} 
 
 \end{spacing}
 
@@ -352,7 +352,7 @@ An $n$ day's MA is the average of the price today and the previous $n-1$ days. P
 
 \subsection{\Predictor Predictor}
 
-\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model. ARMA requires the mean function of the data to be stationary, because history data of stationary series can be used to predict the future. But time series are not always stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. Figure \ref{figure:flow_chart} shows the procedure we take to build the \Predictor model.
+\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model\textsuperscript{[3]}. ARMA requires the mean function of the data to be stationary, because history data of stationary series can be used to predict the future. But time series are not always stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. Figure \ref{figure:flow_chart} shows the procedure we take to build the \Predictor model.
 
  \begin{figure}[H]
  	\centering{\includegraphics[width=16.0cm]{figures/flow_chart_arima.png}}
@@ -427,7 +427,7 @@ $$
 \Delta y_t = y_{t+1} - y_{t}
 $$
 
-Finite difference is useful in processing non-stationary data.
+Finite difference is useful in processing non-stationary data\textsuperscript{[4]}.
 
 \subsubsection{Choice of Parameters}
 
@@ -441,27 +441,20 @@ To select the best parameters of ARIMA model, we first rely on observation on PA
 		\subfigure[Bitcoin ACF Plot]{
 			\includegraphics[width=6.0cm]{figures/btc_acf.png}
 		}
-		\caption{ACF Plot for Gold and Bitcoin}
-		\label{fig:acf}
-	\end{center}
-\end{figure*}
-
-The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, ACF plot in Figure \ref{fig:acf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
-
-\begin{figure*}[htp]
-	\begin{center}
 		\subfigure[Gold PACF Plot]{
 			\includegraphics[width=6.0cm]{figures/gold_pacf.png}
 		}
 		\subfigure[Bitcoin PACF Plot]{
 			\includegraphics[width=6.0cm]{figures/btc_pacf.png}
 		}
-		\label{fig:pacf}
-		\caption{PACF Plot for Gold and Bitcoin}
+		\caption{ACF and PACF Plot for Gold and Bitcoin}
+		\label{fig:acf_pacf}
 	\end{center}
 \end{figure*}
 
-The parameter $q$ is the size of moving average window, which is also called the order of moving window. To assign $q$, PACF plot in Figure \ref{fig:pacf} is inspected. We find that $q=4$ is the best choice for both bitcoin and gold.
+The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, ACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
+
+The parameter $q$ is the size of moving average window, which is also called the order of moving window. To assign $q$, PACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $q=4$ is the best choice for both bitcoin and gold.
 
 
 \subsubsection{Residual Test and Durbin-Watson Test}
@@ -513,7 +506,7 @@ $$
 \subsubsection{Position Management}
 \label{sec:pos_management}
 
-According to Markowitz portfolio theory, the final return of using a multi-asset portfolio investment can reach the weighted average of each asset's return, but the portfolio can significantly reduce systematic risk. The aim is to flatten the return curve and reduce retracements.
+According to Markowitz portfolio theory\textsuperscript{[6]}, the final return of using a multi-asset portfolio investment can reach the weighted average of each asset's return, but the portfolio can significantly reduce systematic risk. The aim is to flatten the return curve and reduce retracements.
 
 Markowitz utilizes mean-variance analysis in his model to measure the expected return and risk of each asset, and in the following, we will also use this model to quantify the expected return and risk of this portfolio of bitcoin and gold.
 
@@ -539,8 +532,8 @@ To measure the return of the portfolio, we use the annualized return of the port
 	\label{figure:markowiz}
 \end{figure}
 
-Using the mean-variance analysis, we try to find a portfolio that minimize the risk and maximize the return. In our model, we use the Monte-Carlo method to simulate the positions of bitcoin and gold. The result of the simulation is plotted in Figure \ref{figure:markowiz}.
-We can conclude from the figure that if the trader is looking for a higher Sharpe Ratio, we should look for the point with the largest value of the vertical coordinate over the horizontal coordinate, or on the top-left area of the figure.
+Using the mean-variance analysis, we try to find a portfolio that minimize the risk and maximize the return. In our model, we use the Monte-Carlo method to simulate the positions of bitcoin and gold. The result of the simulation is plotted in Figure \ref{figure:markowiz} \textsuperscript{[2]}.
+We can conclude from the figure that if the trader is looking for a higher Sharpe Ratio\textsuperscript{[1]}, we should look for the point with the largest value of the vertical coordinate over the horizontal coordinate, or on the top-left area of the figure.
 Extracting the portfolio data behind this point, we find that most portfolios with a Sharpe Ratio of 10 or higher have a portfolio share of 95\% or more in bitcoin.
 Therefore, we conclude to invest bitcoin as much as possible in the whole portfolio. When both gold and bitcoin are on an upward trend, traders are supposed to buy more bitcoin for their portfolio to achieve a high expected return.
 
@@ -549,7 +542,7 @@ Therefore, we conclude to invest bitcoin as much as possible in the whole portfo
 
 Based on the closing price every day, we first calculates the required normalized factors using including the change today, and the average change of 15 days and the bias, for both bitcoin and gold. Then our model predict the price the next day with ARIMA model.
 
-Then, we calculate the indicators with the formula below for bitcoin and gold. 
+Then, we calculate the indicators\textsuperscript{[5]} with the formula below for bitcoin and gold. 
 
 
 \begin{align*}
@@ -754,9 +747,6 @@ Marcos Lopez dai Prado, \textit{Advances in Financial Machine} Learning[M]:75-82
 
 \bibitem{Li2017}
 Li F. Modelling the stock market using a multi-scale approach[D]. University of Leicester, 2017.
-
-\bibitem{Lin2016}
-Lin Xiaoming, A preliminary exploration of Huatai's multi-factor model system [R], Huatai Securities, 2016.
 
 \bibitem{Pang2005}
 Marling H, Emanuelsson S. The Markowitz Portfolio Theory[J]. November, 2012, 25: 2012.
