@@ -43,7 +43,7 @@
 %%%%%%%%%%%%%
 \newcommand{\TeamNumber}{2208487}  % Fill your team number here
 \newcommand{\Problem}{C}  % Replace your team chosen problem here
-\newcommand{\PaperTitle}{To Harvest More: Achieve the Best Trading Strategies on Gold and Bitcoin}  % Change your paper title here
+\newcommand{\PaperTitle}{To Harvest More: Achieve the Best Portfolio with Gold and Bitcoin}  % Change your paper title here
 %%%%%%%%%%%%%
 
 \newcommand{\Predictor}{ARIMA }
@@ -117,13 +117,14 @@ To find the best timing to sell and buy the two assets, we first rate them with 
 \end{itemize}
  
 
-Then from the factors our model further calculates our indicator for risk and trend. By linearly compose these two indicators, we get our main factor, which can give us enough information to make trading decisions.
-
-By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data. 
+Then from the factors our model further calculates our indicator for risk and trend. By linearly compose these two indicators, we get our main factor, which can give us enough information to make trading decisions. By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data. 
 
 As for problem 2, we dig into the application of Markowiz portfolio theory to our task. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management by maximize the income for taking every unit of risk.
+Our model reached a \textbf{annualized return} of $\mathbf{1469.58\%}$, and yielded an \textbf{accumulated equity} of $\mathbf{1.03743 \times 10^6}$ \textbf{USD}. The \textbf{Sharpe ratio} is \textbf{1.1358}, which reveals that our risk-taking strategies perform well compared to a risk-free asset.
 
-As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model, which reveals great stability and scalability for more complicated application. Our model reached a \textbf{annualized return} of $\mathbf{1469.58\%}$, and yielded an \textbf{accumulated equity} of $\mathbf{1.03743 \times 10^6}$ \textbf{USD}. The \textbf{Sharpe ratio} is \textbf{1.1358}, which reveals that our risk-taking strategies perform well compared to a risk-free asset.
+As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model, which reveals great stability and scalability for more complicated application.
+
+
 
 
 \textbf{Key words: ARIMA, Regression, Quantitative Trading, Trading Strategy, Markowiz Portfolio Theory} 
@@ -256,6 +257,63 @@ To simplify the problem stated above, we make following assumptions, each of whi
 \section{Data Preprocessing}
 \label{DataPreprocessing}
 
+\subsection{Fill Missing Value}
+There are some missing value in the provided data of gold prices, as is shown in  \ref{figure:missing_data_dense}
+
+
+\begin{figure}[H]
+	\centering{\includegraphics[width=16.0cm]{figures/missing.png}}
+	\caption{Gold and bitcoin daily prices, in U.S. dollars per troy ounce and U.S. dollars per bitcoin. \textbf{Source:} London Bullion Market 
+		Association, 9/11/2021 and NASDAQ, 9/11/2021 }
+	\label{figure:missing_data_dense}
+\end{figure}
+
+
+The data-dense view reveals that in the price column named USD (PM), there are some missing values roughly in the end of each year. Carefully inspecting the data, we found there is two missing values each year, one is the last day and one is the fourth day from the last.
+
+To make up the them, moving median method is used, where the length of window is 5.
+For each missing value $p_0$, we chose a window
+
+$$
+p_{-2},p_{-1},p_{0},p_{1},p_{2}
+$$
+
+Where $p_{-2}$, $p_{-1}$ are the predecessors of $p_{0}$ and $p_{1}$,$p_{2}$ are the successors of p0. Then, we let the
+value of p0 be the median of ${p_{-2},p_{-1},p_{0},p_{1},p_{2}}$.
+The method is commonly used when only a few values are missing, which is fast and fit in the trend of the provided data well, as is shown in the Figure \ref{fig:fill_missing}.
+
+\begin{figure*}
+	\begin{center}
+		\subfigure[Before]{
+			\includegraphics[width=6.0cm]{figures/example_missing.png}
+		}
+		\subfigure[After]{
+			\includegraphics[width=6.0cm]{figures/fill_missing.png}
+		}
+		\caption{Missing Filling}
+		\label{fig:fill_missing}
+	\end{center}
+\end{figure*}
+
+We not only check the filled blanks by observing if they fit in the trend, but also compare it with the real-word data, as is shown in Table . The error is in a acceptable range, so in the following modeling procedure, we use the modified data.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\caption{Compare with Real-world Values}
+	\label{table:fill_comp}
+	\begin{center}
+		{\footnotesize
+			\begin{tabular}{c|c c }
+				\toprule
+				Date & Interpolated Value & Real-world Value\\
+				\midrule
+				12/22/2017 & 1271.975 & 1268.05 \\
+				12/29/2017 & 1301.525 & 1296.5 \\
+				\bottomrule
+		\end{tabular}}
+	\end{center}	
+\end{table}
+
 
 \subsection{Metric Calculating}
 
@@ -375,7 +433,7 @@ Finite difference is useful in processing non-stationary data.
 
 To select the best parameters of ARIMA model, we first rely on observation on PACF and ACF plot. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
 
-\begin{figure*}
+\begin{figure*}[htp]
 	\begin{center}
 		\subfigure[Gold ACF Plot]{
 			\includegraphics[width=6.0cm]{figures/gold_acf.png}
@@ -390,7 +448,7 @@ To select the best parameters of ARIMA model, we first rely on observation on PA
 
 The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, ACF plot in Figure \ref{fig:acf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
 
-\begin{figure*}
+\begin{figure*}[htp]
 	\begin{center}
 		\subfigure[Gold PACF Plot]{
 			\includegraphics[width=6.0cm]{figures/gold_pacf.png}
@@ -441,10 +499,13 @@ $$
 	\end{equation}
 
 	We calculate $d$ in equation \ref{eqn:d}, which is the approximation of $2(1-\hat{\rho})$, where $\hat{\rho}$ is the sample autocorrelation of the residuals. So $d=2$ indicates no autocorrelation. In our case, we calculate the values in by equation \ref{eqn:d}, and find
-	$$
-	d \ = \ 2.0179203733750732
-	$$
-	which is very close to 2, indicating very low autocorrelation. 
+	
+\begin{align*}
+	d_{gold} \ &= \ 2.0179203733750732 \\
+	d_{bitcoin} \ &= \ 2.0000896547882885
+\end{align*}
+
+	which are very close to 2, indicating very low autocorrelation. 
 \end{enumerate}
 
 \subsection{Trade Decision}
@@ -584,8 +645,30 @@ The detailed performance data is shown in Table \ref{table:performance}. From th
 
 
 %%%%%%%%%%%%%%%%%
-\section{Sensitivity Analysis}
+\section{Model Evaluation and Sensitivity Analysis}
 \label{SensitivityAnalysis}
+
+\subsection{Model Evaluation}
+
+First, we test our \Predictor predictor. Our predictor predict the price the next day according to the history data. So we test its function by compare the prediction with the real data. We plot the result day by day in Figure \ref{fig:pred_evaluation}. 
+
+\begin{figure*}
+	\begin{center}
+		\subfigure[Bitcoin Prediction]{
+			\includegraphics[width=8.0cm]{figures/bitcoin_evaluation.png}
+		}
+		\subfigure[Gold Prediction]{
+			\includegraphics[width=8.0cm]{figures/gold_evaluation.png}
+		}
+		\caption{Evaluation of Prediction for Gold and Bitcoin}
+		\label{fig:pred_evaluation}
+	\end{center}
+\end{figure*}
+
+
+As is seen in the plot, our predictor provides a very accurate prediction for us to make decision on trading, making a good strategy possible. 
+
+\subsection{Sensitivity Analysis}
 
 For each transaction, a commission is charged. The commission can also have an impact on our model. We tested our model with different commissions and found that the level of commission does not significantly affect our model.
 
@@ -604,6 +687,9 @@ By changing commissions and recalculating the total assets we get, we plot Figur
 	
 	\item The given commissions is higher than the commissions in the real world, 0.02\% for bitcoin and 0.05\% for gold. When choosing the thresholds for trading, we can choose more suitable parameters and trade in lower frequencies to reduce frictional costs.
 \end{enumerate}
+
+What is worth mentioning is that our model has a quick respond to accidents in the investment market. In the investment market, there are many potential risks. In this paper, we verifies the validity of the model by changing the commissions. we draw the conclusion that the commission does not have a significant impact on the model.
+But in fact, the investment market can be affected by many factors in the real world, such as: wars,government regulations and other negative news. It is worth mentioning that the model performs well in unexpected negative situations. For example, Bitcoin plunged on 21/5/19, and we reduced the position of Bitcoin through the portfolio model before the plunge, thus reducing the impact of systematic risk on the final return of the portfolio.
 
 %%%%%%%%%%%%%%%%%
 \section{Strength and Weakness}
