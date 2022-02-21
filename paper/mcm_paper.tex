@@ -106,17 +106,24 @@
 
 Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. Our choice of parameters is ARIMA(4,1,4) for both bitcoin and gold. The predictor shows good capability to accurately predict the price of future.
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is ARIMA(4,1,4) for both bitcoin and gold. Our ARIMA(4,1,4)-based predictor shows good capability to accurately predict the price of future.
 
-To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by various factors like changes in value, moving averages, and biases. Then from the factors our model further calculates our indicator for risk and trend. From these two indicators, our main factor can give us enough information to make trading decisions.
+To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by three important factors:
 
-To make trading decisions, we furthermore set thresholds based on our observations and experiments in our data and we balance our portfolio by the Markowiz's asset portfolio model.
+\begin{itemize}
+	\item Changes in value
+	\item Moving averages
+	\item Bias
+\end{itemize}
+ 
+
+Then from the factors our model further calculates our indicator for risk and trend. By linearly compose these two indicators, we get our main factor, which can give us enough information to make trading decisions.
+
+By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data and we finally balance our portfolio by the Markowiz's asset portfolio model.
 
 As for problem 2, we dig into the application of Markowiz's asset portfolio model to the data. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management.
 
 As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model.
-
-Finally
 
 
 \textbf{Key words: ARIMA, Quantitative Trading, Regression, Trading Strategy} 
@@ -214,11 +221,30 @@ To simplify the problem stated above, we make following assumptions, each of whi
 
 \subsection{Symbols and Definitions}
 
-
-
-\subsection{Symbols and Definitions}
-
-
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\caption{Symbols and Definitions.}
+	\label{Table_Symbols}
+	\begin{center}
+		{\footnotesize
+			\begin{tabular}{c c}
+				\toprule
+				{Notations} & {Description} \\
+				\midrule
+				{$PC$}    & {Percentage change} \\ 
+				{$P_{0,bitcoin}$}     & { The p-value for ADF test of the raw data of bitcoin} \\ 
+				$P_{0,gold}$   & {The p-value for ADF test of the raw data of gold} \\ 
+				$P_{1,bitcoin}$     & { The p-value for ADF test of the first-order difference of bitcoin} \\
+				$P_{1,gold}$     & {The p-value for ADF test of the first-order difference of gold} \\ 
+				$SS$     & {Threshold for main factor to sell certain asset} \\ 
+				$BS$    & {Threshold for main factor to buy certain asset} \\ 
+				$TI$     & {The trend indicator} \\ 
+				$RI$     & {The risk indicator} \\ 
+				$MF$     & {The main factor} \\ 
+				\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
 
 
 
@@ -594,7 +620,7 @@ Though our model performs well, the models have following weaknesses:
 \section{Conclusions}
 \label{Conclusions}
 
-In this paper, we build a \Predictor based predictor to enhance the income of trading cash, gold, and bitcoins. First, we preprocess the data and fill the missing values. Then, we finish the feature engineering by finite difference and feature store to boost the machine learning effect. After that, we use a RNN-based \Predictor to predict the price. Finally, we reach the optimality of our model by compare different trading strategies. Sensitive tests and evaluation are carried out. We measured our model by annualized return, retracement and sharp rate. The influence of commissions are experimented to test the sensitivity. Our model yields satisfying results.
+In this paper, we build a \Predictor based predictor and the rating-based decision maker to enhance the income of trading cash, gold, and bitcoins. First, we preprocess the data and calculate various factors. Then, we do feature engineering by finite difference to deal with non-stationarity. After that, we use a ARIMA(4,1,4) predictor to predict the price in the future. Finally, we design a rating system and then derive our main factor to decide whether to buy, hold, or sell bitcoin and gold, and our strategies is test with Markowiz's  asset portfolio model. Sensitive tests  are carried out to find that our model will remain stable when commissions change. We measured our model by performance indicators like annualized return, retracement, and Sharpe ratio. Our model yields satisfying results.
 
 
 
