@@ -355,10 +355,11 @@ To select the best parameters of ARIMA model, we first rely on observation on PA
 			\includegraphics[width=6.0cm]{figures/btc_acf.png}
 		}
 		\caption{ACF Plot for Gold and Bitcoin}
+		\label{fig:acf}
 	\end{center}
 \end{figure*}
 
-
+The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, ACF plot in Figure \ref{fig:acf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
 
 \begin{figure*}
 	\begin{center}
@@ -368,11 +369,12 @@ To select the best parameters of ARIMA model, we first rely on observation on PA
 		\subfigure[Bitcoin PACF Plot]{
 			\includegraphics[width=6.0cm]{figures/btc_pacf.png}
 		}
+		\label{fig:pacf}
 		\caption{PACF Plot for Gold and Bitcoin}
 	\end{center}
 \end{figure*}
 
-
+The parameter $q$ is the size of moving average window, which is also called the order of moving window. To assign $q$, PACF plot in Figure \ref{fig:pacf} is inspected. We find that $q=4$ is the best choice for both bitcoin and gold.
 
 
 \subsubsection{Residual Test and Durbin-Watson Test}
@@ -501,9 +503,35 @@ Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
 	\label{figure:equity_change}
 \end{figure}
 
-Result analysis
+As is plotted in Figure \ref{figure:equity_change}, our equity change rises a lot with time going by. From the plot we can know the following facts.
 
-Discussions
+\begin{itemize}
+	\item \textbf{Our strategies work well to maximize income.} As is seen in the plot, the equity rises in the order of magnitude from $10^3$ to $10^6$, which is a considerable achievement.
+	
+	\item \textbf{Our strategies has a distinct feature that it has very low retracement.} As is seen in the plot, only there are only a few retracements, all of which have small value changes. It reveals that we have a good performance in dealing with risks.
+\end{itemize}
+
+The detailed performance data is shown in Table \ref{table:performance}. From the table we can have a quantitative view on the brilliant performance of our model.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\caption{Performance Data}
+	\label{table:performance}
+	\begin{center}
+		{\footnotesize
+			\begin{tabular}{c c }
+				\toprule
+				Performance Indicator & Measurement\\
+				\midrule
+				Accumulated Equity & $1.03743 \times 10^6$ \\
+				Annualized Return & 1469.58\% \\
+				Maximum Retracement & -53.90\% \\
+				Annualized Return/Retracement Ratio & 27.77 \\
+				Sharpe Ratio & 1.1358 \\
+				\bottomrule
+		\end{tabular}}
+	\end{center}	
+\end{table}
 
 
 
@@ -687,8 +715,8 @@ With above strategies, our model achieve great income. The performance of our mo
 				\midrule
 				Accumulated Equity & $1.03743 \times 10^6$ \\
 				Annualized Return & 1469.58\% \\
-				Maximum Dropdown & -53.90\% \\
-				Annualized Return/Dropdown Ratio & 27.77 \\
+				Maximum Retracement & -53.90\% \\
+				Annualized Return/Retracement Ratio & 27.77 \\
 				Sharpe Ratio & 1.1358 \\
 				\bottomrule
 		\end{tabular}}
