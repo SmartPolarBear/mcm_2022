@@ -104,11 +104,11 @@
 % Enter your summary here replacing the (red) text
 % Replace the text from here ...
 
-Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
+Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is a risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \textbf{\Predictor} to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is $\mathbf{ARIMA}(4,1,4)$ for both bitcoin and gold. Our $\mathbf{ARIMA}(4,1,4)$-based predictor shows good capability to accurately predict the price of future.
+As for problem 1, First, we plot the price data and found that they show non-stationarity in the sense of mean. We, therefore, utilize \textbf{\Predictor} to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is $\mathbf{ARIMA}(4,1,4)$ for both bitcoin and gold. Our $\mathbf{ARIMA}(4,1,4)$-based predictor shows the good capability to accurately predict the price of the future.
 
-To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by three important factors:
+To find the best timing to sell and buy the two assets, we first rate them with our well-designed rating system by three important factors:
 
 \begin{itemize}
 	\item Changes in value
@@ -117,17 +117,17 @@ To find the best timing to sell and buy the two assets, we first rate them with 
 \end{itemize}
  
 
-Then from the factors our model further calculates our indicator for risk and trend. By linearly compose these two indicators, we get our main factor, which can give us enough information to make trading decisions. By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data. 
+Then from the factors our model further calculates our indicator for risk and trend. By linearly composing these two indicators, we get our main factor, which can give us enough information to make trading decisions. By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data. 
 
-As for problem 2, we dig into the application of Markowiz portfolio theory to our task. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management by maximize the income for taking every unit of risk.
-Our model reached a \textbf{annualized return} of $\mathbf{1469.58\%}$, and yielded an \textbf{accumulated equity} of $\mathbf{1.03743 \times 10^6}$ \textbf{USD}. The \textbf{Sharpe ratio} is \textbf{1.1358}, which reveals that our risk-taking strategies perform well compared to a risk-free asset.
+As for problem 2, we dig into the application of Markowitz portfolio theory to our task. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possible for us to get. Moreover, it indicates that we achieve better risk management by maximizing the income for taking every unit of risk.
+Our model reached an \textbf{annualized return} of $\mathbf{1469.58\%}$ and yielded \textbf{accumulated equity} of $\mathbf{1.03743 \times 10^6}$ \textbf{USD}. The \textbf{Sharpe ratio} is \textbf{1.1358}, which reveals that our risk-taking strategies perform well compared to a risk-free asset.
 
-As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model, which reveals great stability and scalability for more complicated application.
-
-
+As for problem 3, we test our model by changing the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model, which reveals great stability and scalability for more complicated applications.
 
 
-\textbf{Key words: ARIMA, Regression, Trading Strategy, Markowiz Portfolio Theory} 
+
+
+\textbf{Key words: ARIMA, Regression, Trading Strategy, Markowitz Portfolio Theory} 
 
 \end{spacing}
 
@@ -196,10 +196,10 @@ With the popularity of cryptocurrencies and the simplification of trading method
 \subsection{Our Approach}
 
 \begin{enumerate}
-	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\Predictor} (Autoregressive integrated moving average).}
+	\item \textbf{To predict the prices of bitcoin and gold and make decisions, we use \textit{\Predictor} (Autoregressive integrated moving average).}
 	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt \Predictor to predict the prices, which is proved to give satisfying results.
 	
-	\item \textbf{To make decision on trading, design a comprehensive rating system to make decisions on trading.} Based on various factor drawn out from price data, we compute our main factor by compose the trend indicator and risk indicator. We then set thresholds based on both our observations and findings in data. Then we decide the final strategies Markowiz portfolio theory.
+	\item \textbf{To make decisions on trading, design a comprehensive rating system to make decisions on trading.} Based on various factors drawn out from price data, we compute our main factor by composing the trend indicator and risk indicator. We then set thresholds based on both our observations and findings in data. Then we decide the final strategies Markowitz portfolio theory.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%
@@ -207,16 +207,16 @@ With the popularity of cryptocurrencies and the simplification of trading method
 \label{Assumptions_Justifications}
 
 \subsection{Assumptions}
-To simplify the problem stated above, we make following assumptions, each of which is justified properly: 
+To simplify the problem stated above, we make the following assumptions, each of which is justified properly: 
 \begin{enumerate}
 	
-	\item \textbf{The trader does not have a bias towards a lower risk.} The two given assests, gold and bitcoin, differs a lot in risk. To simplify the problem, we assume that the trader will not prefer lower risk than higher and only cares about higher income.
+	\item \textbf{The trader does not have a bias towards a lower risk.} The two given assets, gold, and bitcoin, differ a lot in risk. To simplify the problem, we assume that the trader will not prefer lower risk than higher and only cares about higher income.
 	
 	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$, respectively.}
 
-	\item \textbf{The return rate for cash is 0\%} To simplify the problem, we assume that the cash that we hold do not produce any return at all.
+	\item \textbf{The return rate for cash is 0\%} To simplify the problem, we assume that the cash that we hold does not produce any return at all.
 
-	\item \textbf{The market trader sells all of the gold and bitcoin by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoin, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
+	\item \textbf{The market trader sells all of the gold and bitcoin by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors care about funding liquidity. Among cash, gold ,and bitcoin, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
 	
 \end{enumerate}
 
@@ -269,7 +269,7 @@ There are some missing value in the provided data of gold prices, as is shown in
 \end{figure}
 
 
-The data-dense view reveals that in the price column named USD (PM), there are some missing values roughly in the end of each year. Carefully inspecting the data, we found there is two missing values each year, one is the last day and one is the fourth day from the last.
+The data-dense view reveals that in the price column named USD (PM), there are some missing values roughly at the end of each year. Carefully inspecting the data, we found there are two missing values each year, one is the last day and one is the fourth day from the last.
 
 To make up the them, moving median method is used, where the length of window is 5.
 For each missing value $p_0$, we chose a window
@@ -280,7 +280,7 @@ $$
 
 Where $p_{-2}$, $p_{-1}$ are the predecessors of $p_{0}$ and $p_{1}$,$p_{2}$ are the successors of p0. Then, we let the
 value of p0 be the median of ${p_{-2},p_{-1},p_{0},p_{1},p_{2}}$.
-The method is commonly used when only a few values are missing, which is fast and fit in the trend of the provided data well, as is shown in the Figure \ref{fig:fill_missing}.
+The method is commonly used when only a few values are missing, which is fast and fits in the trend of the provided data well, as is shown in Figure \ref{fig:fill_missing}.
 
 \begin{figure*}
 	\begin{center}
@@ -295,7 +295,7 @@ The method is commonly used when only a few values are missing, which is fast an
 	\end{center}
 \end{figure*}
 
-We not only check the filled blanks by observing if they fit in the trend, but also compare it with the real-word data, as is shown in Table . The error is in a acceptable range, so in the following modeling procedure, we use the modified data.
+We not only check the filled blanks by observing if they fit in the trend, but also compare it with the real-world data, as is shown in Table \ref{table:fill_comp}. The error is in an acceptable range, so in the following modeling procedure, we use the modified data.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
@@ -328,7 +328,7 @@ Percentage \ change = PC = \frac{New \ price-Old \ price}{Old \ price} \times 10
 $$
 
 
-The result for the given data is in the \nameref{sec:AppendixFT}. Figure \ref{figure:bitcoin_ac} and Figure \ref{figure:gold_ac} shows the average change we calculated for bitcoin and gold, respectively.
+The result for the given data is in the \nameref{sec:AppendixFT}. Figure \ref{figure:bitcoin_ac} and Figure \ref{figure:gold_ac} show the average change we calculated for bitcoin and gold, respectively.
 
 
 \subsubsection{Bias}
@@ -341,18 +341,18 @@ $$
 Bias = \frac{Closing \ price}{The \ mean \ price \ of \ n \ days} - 1
 $$
 
-Bias can help to track the market for the raise and fall of the price, which help us to decide whether and when to sell or buy.
+Bias can help to track the market for the rise and fall of the price, which helps us to decide whether and when to sell or buy.
 
 \subsubsection{Moving Averages (MA)}
 
-An $n$ day's MA is the average of the price today and the previous $n-1$ days. Plotting all the MAs in a chart, it can reveal the trend of the price of the given period. Combined with current price, it helps us to find the favorable timing to increase our outcome
+An $n$ day's MA is the average of the price today and the previous $n-1$ days. Plotting all the MAs in a chart can reveal the trend of the price of the given period. Combined with the current price, it helps us to find the favorable timing to increase our outcome.
 
 \section{Mathematical Modeling}
 \label{MathModels}
 
 \subsection{\Predictor Predictor}
 
-\Predictor is widely used for forecasting time series data, which is a generalization of ARMA (autoregressive moving average) model\textsuperscript{[3]}. ARMA requires the mean function of the data to be stationary, because history data of stationary series can be used to predict the future. But time series are not always stationary, so ARIMA take an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first order difference is stationary, so we take first order difference. Figure \ref{figure:flow_chart} shows the procedure we take to build the \Predictor model.
+\Predictor (autoregressive integrated moving average) is widely used for forecasting time series data, which is a generalization of the ARMA (autoregressive moving average) model\textsuperscript{[3]}. ARMA requires the mean function of the data to be stationary because history data of stationary series can be used to predict the future. But time series are not always stationary, so ARIMA takes an initial differencing step to eliminate the non-stationarity of the mean function. In this case, we find the first-order difference is stationary, so we take first-order difference. Figure \ref{figure:flow_chart} shows the procedure we take to build the \Predictor model.
 
  \begin{figure}[H]
  	\centering{\includegraphics[width=16.0cm]{figures/flow_chart_arima.png}}
@@ -377,7 +377,7 @@ $$
 P \ge 0.05
 $$
 
-It can test whether the data is stationary or trend-stationary. If the unit root is present in the series, the time-series is non-stationary.
+It can test whether the data is stationary or trend-stationary. If the unit root is present in the series, the time series is non-stationary.
 
 In the raw data, we found
 
@@ -431,7 +431,7 @@ Finite difference is useful in processing non-stationary data\textsuperscript{[4
 
 \subsubsection{Choice of Parameters}
 
-To select the best parameters of ARIMA model, we first rely on observation on PACF and ACF plot. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
+To select the best parameters of the ARIMA model, we first rely on observation on PACF and ACF plots. And then, if it does not fall in a range that makes sense, we search for possible parameters by grid searching the feasible domain.
 
 \begin{figure*}[htp]
 	\begin{center}
@@ -452,13 +452,13 @@ To select the best parameters of ARIMA model, we first rely on observation on PA
 	\end{center}
 \end{figure*}
 
-The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, ACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
+The parameter $p$ of ARIMA(p,d,q) is the number of lag observations in the model, which is also known as the lag order. To assign $p$, the ACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $p=4$ is the best choice for both bitcoin and gold.
 
-The parameter $q$ is the size of moving average window, which is also called the order of moving window. To assign $q$, PACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $q=4$ is the best choice for both bitcoin and gold.
+The parameter $q$ is the size of the moving average window, which is also called the order of moving window. To assign $q$, the PACF plot in Figure \ref{fig:acf_pacf} is inspected. We find that $q=4$ is the best choice for both bitcoin and gold.
 
 
 \subsubsection{Residual Test and Durbin-Watson Test}
-To test whether our model has extracted all information in the data, we inspect the residuals and test if they look like white noise. White noise residuals reveal that all information to predict has been extracted, so that we can utilize them to predict the future. And what is left is only random perturbation and is of no use for our \Predictor predictor. To carry out the test, we first plot the residual Q-Q plot and then carry our a Durbin-Watson(DW) test. The test results are as follows.
+To test whether our model has extracted all information in the data, we inspect the residuals and test if they look like white noise. White noise residuals reveal that all information to predict has been extracted so that we can utilize them to predict the future. And what is left is only random perturbation and is of no use for our \Predictor predictor. To carry out the test, we first plot the residual Q-Q plot and then carry out a Durbin-Watson(DW) test. The test results are as follows.
 
 \begin{enumerate}
 	\item \textbf{Residual Q-Q Plot}
@@ -477,10 +477,10 @@ To test whether our model has extracted all information in the data, we inspect 
 		\label{fig:qq_plot}
 	\end{figure}
 
-	We can see in Figure \ref{fig:qq_plot} that the scatters appears to be around a straight line, which indicates our parameters are good enough to predict the future.
+	We can see in Figure \ref{fig:qq_plot} that the scatters appear to be around a straight line, which indicates our parameters are good enough to predict the future.
 	
 	\item \textbf{DW Test}
-	DW test is commonly used for test whether autocorrelation presents in the residuals from a regression analysis. The DW statistics has a null hypothesis
+	DW test is commonly used for testing whether autocorrelation presents in the residuals from a regression analysis. The DW statistics has a null hypothesis.
 	
 $$
 	H_0 \ : \ \rho = 0	
@@ -528,11 +528,11 @@ To measure the return of the portfolio, we use the annualized return of the port
 
 \begin{figure}[H]
 	\centering{\includegraphics[width=8.0cm]{figures/markowiz_sim.png}}
-	\caption{Application of Markowiz Theory}
+	\caption{Application of Markowitz Theory}
 	\label{figure:markowiz}
 \end{figure}
 
-Using the mean-variance analysis, we try to find a portfolio that minimize the risk and maximize the return. In our model, we use the Monte-Carlo method to simulate the positions of bitcoin and gold. The result of the simulation is plotted in Figure \ref{figure:markowiz} \textsuperscript{[2]}.
+Using the mean-variance analysis, we try to find a portfolio that minimizes the risk and maximizes the return. In our model, we use the Monte-Carlo method to simulate the positions of bitcoin and gold. The result of the simulation is plotted in Figure \ref{figure:markowiz} \textsuperscript{[2]}.
 We can conclude from the figure that if the trader is looking for a higher Sharpe Ratio\textsuperscript{[1]}, we should look for the point with the largest value of the vertical coordinate over the horizontal coordinate, or on the top-left area of the figure.
 Extracting the portfolio data behind this point, we find that most portfolios with a Sharpe Ratio of 10 or higher have a portfolio share of 95\% or more in bitcoin.
 Therefore, we conclude to invest bitcoin as much as possible in the whole portfolio. When both gold and bitcoin are on an upward trend, traders are supposed to buy more bitcoin for their portfolio to achieve a high expected return.
@@ -550,7 +550,7 @@ Then, we calculate the indicators\textsuperscript{[5]} with the formula below fo
 	Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
 \end{align*}
 
-Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz portfolio theory and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
+Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowitz portfolio theory and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
 
 We set following thresholds for selling or buying bitcoin and gold in Table \ref{table:threshold}.
 
@@ -610,7 +610,7 @@ As is plotted in Figure \ref{figure:equity_change}, our equity change rises a lo
 \begin{itemize}
 	\item \textbf{Our strategies work well to maximize income.} As is seen in the plot, the equity rises in the order of magnitude from $10^3$ to $10^6$, which is a considerable achievement.
 	
-	\item \textbf{Our strategies has a distinct feature that it has very low retracement.} As is seen in the plot, only there are only a few retracements, all of which have small value changes. It reveals that we have a good performance in dealing with risks.
+	\item \textbf{Our strategy has a distinct feature that it has very low retracement.} As is seen in the plot, only there are only a few retracements, all of which have small value changes. It reveals that we have a good performance in dealing with risks.
 \end{itemize}
 
 The detailed performance data is shown in Table \ref{table:performance}. From the table we can have a quantitative view on the brilliant performance of our model.
@@ -643,7 +643,7 @@ The detailed performance data is shown in Table \ref{table:performance}. From th
 
 \subsection{Model Evaluation}
 
-First, we test our \Predictor predictor. Our predictor predict the price the next day according to the history data. So we test its function by compare the prediction with the real data. We plot the result day by day in Figure \ref{fig:pred_evaluation}. 
+First, we test our \Predictor predictor. Our predictor predicts the price the next day according to the history data. So we test its function by comparing the prediction with the real data. We plot the result day by day in Figure \ref{fig:pred_evaluation}. 
 
 \begin{figure*}
 	\begin{center}
@@ -659,7 +659,7 @@ First, we test our \Predictor predictor. Our predictor predict the price the nex
 \end{figure*}
 
 
-As is seen in the plot, our predictor provides a very accurate prediction for us to make decision on trading, making a good strategy possible. 
+As is seen in the plot, our predictor provides a very accurate prediction for us to make decisions on trading, making a good strategy possible. 
 
 \subsection{Sensitivity Analysis}
 
@@ -674,15 +674,15 @@ For each transaction, a commission is charged. The commission can also have an i
 By changing commissions and recalculating the total assets we get, we plot Figure \ref{figure:sensitive_test}, from which we can draw the following conclusions
 
 \begin{enumerate}
-	\item Commissions may influence the equity change in the end, but the range is considered small, which reveals great stability of our model.
+	\item Commissions may influence the equity change in the end, but the range is considered small, which reveals the great stability of our model.
 	
 	\item From the figure we plot, we find that commissions for bitcoin have a stronger impact on the income. It is because to reach higher income, we hold more bitcoin so that when commissions go higher, we are charged much more.
 	
-	\item The given commissions is higher than the commissions in the real world, 0.02\% for bitcoin and 0.05\% for gold. When choosing the thresholds for trading, we can choose more suitable parameters and trade in lower frequencies to reduce frictional costs.
+	\item The given commissions are higher than the commissions in the real world, 0.02\% for bitcoin and 0.05\% for gold. When choosing the thresholds for trading, we can choose more suitable parameters and trade in a lower frequency to reduce frictional costs.
 \end{enumerate}
 
-What is worth mentioning is that our model has a quick respond to accidents in the investment market. In the investment market, there are many potential risks. In this paper, we verifies the validity of the model by changing the commissions. we draw the conclusion that the commission does not have a significant impact on the model.
-But in fact, the investment market can be affected by many factors in the real world, such as: wars,government regulations and other negative news. It is worth mentioning that the model performs well in unexpected negative situations. For example, Bitcoin plunged on 21/5/19, and we reduced the position of Bitcoin through the portfolio model before the plunge, thus reducing the impact of systematic risk on the final return of the portfolio.
+What is worth mentioning is that our model has a quick responds to accidents in the investment market. In the investment market, there are many potential risks. In this paper, we verify the validity of the model by changing the commissions. we draw the conclusion that the commission does not have a significant impact on the model.
+But in fact, the investment market can be affected by many factors in the real world, such as wars, government regulations, and other negative news. It is worth mentioning that the model performs well in unexpected negative situations. For example, Bitcoin plunged on 21/5/19, and we reduced the position of Bitcoin through the portfolio model before the plunge, thus reducing the impact of systematic risk on the final return of the portfolio.
 
 %%%%%%%%%%%%%%%%%
 \section{Strength and Weakness}
@@ -696,9 +696,9 @@ The models have the following strengths:
 \begin{itemize}
 \item \textbf{Our model yields considerable income}
 
-\item \textbf{Our model do not involve artificial neural network, which saves computational resources and improves interpretability.}
+\item \textbf{Our model does not involve artificial neural network, which saves computational resources and improves interpretability.}
 
-\item \textbf{Our model build up a fair system to assess a financial asset.}
+\item \textbf{Our model builds up a fair system to assess a financial asset.}
 
 \item \textbf{Our model can be generalized to all problems in trading.}
 
@@ -720,7 +720,7 @@ Though our model performs well, the models have following weaknesses:
 \section{Conclusions}
 \label{Conclusions}
 
-In this paper, we build a \Predictor based predictor and the rating-based decision maker to enhance the income of trading gold, and bitcoin. First, we preprocess the data and calculate various factors. Then, we do feature engineering by finite difference to deal with non-stationarity. After that, we use a ARIMA(4,1,4) predictor to predict the price in the future. Finally, we design a rating system and then derive our main factor to decide whether to buy, hold, or sell bitcoin and gold, and our strategies is test with Markowiz portfolio theory. Sensitive tests  are carried out to find that our model will remain stable when commissions change. We measured our model by performance indicators like annualized return, retracement, and Sharpe ratio. Our model yields satisfying results.
+In this paper, we build an \Predictor based predictor and the rating-based decision-maker to enhance the income of trading gold, and bitcoin. First, we preprocess the data and calculate various factors. Then, we do feature engineering by finite difference to deal with non-stationarity. After that, we use an ARIMA(4,1,4) predictor to predict the price in the future. Finally, we design a rating system and then derive our main factor to decide whether to buy, hold, or sell bitcoin and gold, and our strategies is tested with Markowitz portfolio theory. Sensitive tests are carried out to find that our model will remain stable when commissions change. We measured our model by performance indicators like annualized return, retracement, and Sharpe ratio. Our model yields satisfying results.
 
 
 
@@ -756,8 +756,8 @@ Marling H, Emanuelsson S. The Markowitz Portfolio Theory[J]. November, 2012, 25:
 \addcontentsline{toc}{section}{References}
 
 
-\addtocounter{page}{-1}
-\thispagestyle{empty}
+%\addtocounter{page}{-1}
+%\thispagestyle{empty}
 
 %%%%%%%%%%%%%%%%%
 \newpage
@@ -769,7 +769,7 @@ Marling H, Emanuelsson S. The Markowitz Portfolio Theory[J]. November, 2012, 25:
 Considering the intensely changing financial markets and the difficulty of handling your portfolio, using an appropriate model to make predictions and strategies to trade are of vital importance to improve income. It is a great honor for us to develop the model for you to buy, hold and sell your assets. Here is our model based on \textbf{\Predictor} and strategies for you to trade your assets effectively.  
 	
 \begin{enumerate}
-	\item Our model calculates the required normalized factors using the closing price every day,including the change today, the average change of 15 days and the bias, for both bitcoin and gold. Then our model predict the price the next day with ARIMA model.
+	\item Our model calculates the required normalized factors using the closing price every day, including the change today, the average change of 15 days, and the bias, for both bitcoin and gold. Then our model predicts the price the next day with the ARIMA model.
 	 
 	\item Based on the calculated values and our research, we calculate the indicators with the formula below for bitcoin and gold. 
 	
@@ -779,7 +779,7 @@ Considering the intensely changing financial markets and the difficulty of handl
 	Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
 \end{align*}
 	
-	Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz's asset portfolio model and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
+	Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowitz portfolio theory and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
 	
 	\item We set following thresholds for selling or buying bitcoin and gold in Table \ref{table:memo_threshold}.
 	
@@ -822,7 +822,7 @@ Considering the intensely changing financial markets and the difficulty of handl
 	F=2.5 \times (MF_{bitcoin}-BS_{bitcoin})-(MF_{gold}-BS_{gold})
 	$$
 	
-	Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
+	Then, our model recommends buying gold when $F<0$ and buying bitcoin when $F>0$.
 \end{enumerate}
 
 With above strategies, our model achieve great income. The performance of our model is as follows
@@ -848,7 +848,7 @@ With above strategies, our model achieve great income. The performance of our mo
 \end{table}
 
 
-We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoin, and we firmly believe that our model can be utilized in your tradings to maximize your income. Feel free to contact us for further information on the proposal.
+We appreciate this opportunity to help you to build up a trading strategy for cash, gold, and bitcoin, and we firmly believe that our model can be utilized in your tradings to maximize your income. Feel free to contact us for further information on the proposal.
 
 Sincerely yours
 
