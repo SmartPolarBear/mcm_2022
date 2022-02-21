@@ -43,7 +43,7 @@
 %%%%%%%%%%%%%
 \newcommand{\TeamNumber}{2208487}  % Fill your team number here
 \newcommand{\Problem}{C}  % Replace your team chosen problem here
-\newcommand{\PaperTitle}{To Harvest More: Best Trading Strategies on Gold and Bitcoins}  % Change your paper title here
+\newcommand{\PaperTitle}{To Harvest More: Achieve the Best Trading Strategies on Gold and Bitcoin}  % Change your paper title here
 %%%%%%%%%%%%%
 
 \newcommand{\Predictor}{ARIMA }
@@ -106,7 +106,7 @@
 
 Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is ARIMA(4,1,4) for both bitcoin and gold. Our ARIMA(4,1,4)-based predictor shows good capability to accurately predict the price of future.
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to deal with the non-stationarity and predict the future prices of gold and bitcoin. Our choice of parameters is $ARIMA(4,1,4)$ for both bitcoin and gold. Our $ARIMA(4,1,4)$-based predictor shows good capability to accurately predict the price of future.
 
 To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by three important factors:
 
@@ -119,14 +119,14 @@ To find the best timing to sell and buy the two assets, we first rate them with 
 
 Then from the factors our model further calculates our indicator for risk and trend. By linearly compose these two indicators, we get our main factor, which can give us enough information to make trading decisions.
 
-By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data and we finally balance our portfolio by the Markowiz's asset portfolio model.
+By utilizing the information we get with our main factor to make trading decisions, we furthermore set thresholds based on our observations and experiments in our data. 
 
-As for problem 2, we dig into the application of Markowiz's asset portfolio model to the data. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management.
+As for problem 2, we dig into the application of Markowiz portfolio theory to our task. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management by maximize the income for taking every unit of risk.
 
-As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model.
+As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model, which reveals great stability and scalability for more complicated application. Our model reached a \textbf{annualized return} of $\mathbf{1469.58\%}$, and yielded an \textbf{accumulated equity} of $\mathbf{1.03743 \times 10^6}$ \textbf{USD}. The \textbf{Sharpe ratio} is \textbf{1.1358}, which reveals that our risk-taking strategies perform well compared to a risk-free asset.
 
 
-\textbf{Key words: ARIMA, Quantitative Trading, Regression, Trading Strategy} 
+\textbf{Key words: ARIMA, Regression, Quantitative Trading, Trading Strategy, Markowiz Portfolio Theory} 
 
 \end{spacing}
 
@@ -167,7 +167,7 @@ As for problem 3, we test our model by change the commissions for trading bitcoi
 \label{Problem_Statement}
 
 \subsection{Problem Background}
-With the popularity of cryptocurrencies and the simplification of trading methods, more of the population become market traders. Some of them expect to outperform inflation, while others want to create wealth. By buying and selling volatile assets frequently, market traders pursue a goal to maximize their total return. Gold and bitcoins enjoy great popularity these days for their complementary characteristics in risk and value. Gold is stable in price and has lower risk while the value of bitcoins varies greatly and thus has a higher risk, as is shown in Figure \ref{figure:prices2in1}.
+With the popularity of cryptocurrencies and the simplification of trading methods, more of the population become market traders. Some of them expect to outperform inflation, while others want to create wealth. By buying and selling volatile assets frequently, market traders pursue a goal to maximize their total return. Gold and bitcoin enjoy great popularity these days for their complementary characteristics in risk and value. Gold is stable in price and has lower risk while the value of bitcoin varies greatly and thus has a higher risk, as is shown in Figure \ref{figure:prices2in1}.
 
 \begin{figure}[H]
 	\centering{\includegraphics[width=17.0cm]{figures/prices_2in1.png}}
@@ -176,7 +176,7 @@ With the popularity of cryptocurrencies and the simplification of trading method
 	\label{figure:prices2in1}
 \end{figure}
 
- Regarding trading rules, Gold is only traded on days the market is open while bitcoins are traded every day. Commissions are charged to make each transaction. For market traders to achieve their goals, they need to build a model to determine the strategies to manage their portfolios well.
+ Regarding trading rules, Gold is only traded on days the market is open while bitcoin are traded every day. Commissions are charged to make each transaction. For market traders to achieve their goals, they need to build a model to determine the strategies to manage their portfolios well.
 
 \subsection{Restatement of the Problem}
 
@@ -198,7 +198,7 @@ With the popularity of cryptocurrencies and the simplification of trading method
 	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\Predictor} (Autoregressive integrated moving average).}
 	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt \Predictor to predict the prices, which is proved to give satisfying results.
 	
-	\item \textbf{To make decision on trading, design a comprehensive rating system to make decisions on trading.} Based on various factor drawn out from price data, we compute our main factor by compose the trend indicator and risk indicator. We then set thresholds based on both our observations and findings in data. Then we decide the final strategies Markowiz's asset portfolio model.
+	\item \textbf{To make decision on trading, design a comprehensive rating system to make decisions on trading.} Based on various factor drawn out from price data, we compute our main factor by compose the trend indicator and risk indicator. We then set thresholds based on both our observations and findings in data. Then we decide the final strategies Markowiz portfolio theory.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%
@@ -213,8 +213,9 @@ To simplify the problem stated above, we make following assumptions, each of whi
 	
 	\item \textbf{The trader will have \$1000 in the beginning, and the transaction commissions for gold and bitcoin are $\alpha_{gold}=1\%$ and $\alpha_{bitcoin}=2\%$, respectively.}
 
+	\item \textbf{The return rate for cash is 0\%} To simplify the problem, we assume that the cash that we hold do not produce any return at all.
 
-	\item \textbf{The market trader sells all of the gold and bitcoins by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoins, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
+	\item \textbf{The market trader sells all of the gold and bitcoin by the end of the five-year trading period, i.e. on 9/10/2021.} Generally, investors cares about funding liquidity. Among cash, gold and bitcoin, only cash can circulate unhindered in the market. So we make this assumption and thus measure the outcome in cash.
 	
 \end{enumerate}
 
@@ -231,6 +232,7 @@ To simplify the problem stated above, we make following assumptions, each of whi
 				\toprule
 				{Notations} & {Description} \\
 				\midrule
+				{$\Delta^ky_t$} & {The k-order difference of the function $y$} \\
 				{$PC$}    & {Percentage change} \\ 
 				{$P_{0,bitcoin}$}     & { The p-value for ADF test of the raw data of bitcoin} \\ 
 				$P_{0,gold}$   & {The p-value for ADF test of the raw data of gold} \\ 
@@ -409,7 +411,7 @@ To test whether our model has extracted all information in the data, we inspect 
 
 \begin{enumerate}
 	\item \textbf{Residual Q-Q Plot}
-	A Quantile-Quantile plot (QQ-plot) shows the "match" of an observed distribution with a theoretical distribution, almost always the normal distribution. We plot the Q-Q plot and find that the residual distribution is roughly the same as the normal distribution, or is similar to white noise.
+	A Quantile-Quantile plot (Q-Q plot) shows the "match" of an observed distribution with a theoretical distribution, almost always the normal distribution. We plot the Q-Q plot and find that the residual distribution is roughly the same as the normal distribution, or is similar to white noise.
 	
 	\begin{figure}
 		\begin{center}
@@ -445,80 +447,99 @@ $$
 	which is very close to 2, indicating very low autocorrelation. 
 \end{enumerate}
 
-
-\subsubsection{Predict the Change Using \Predictor}
-
-
 \subsection{Trade Decision}
+
+\subsubsection{Position Management}
+\label{sec:pos_management}
+
+According to Markowitz portfolio theory, the final return of using a multi-asset portfolio investment can reach the weighted average of each asset's return, but the portfolio can significantly reduce systematic risk. The aim is to flatten the return curve and reduce retracements.
+
+Markowitz utilizes mean-variance analysis in his model to measure the expected return and risk of each asset, and in the following, we will also use this model to quantify the expected return and risk of this portfolio of bitcoin and gold.
+
+To measure the risk of the portfolio, we calculate the standard deviation. The standard deviation of the portfolio is defined as
+
+$$
+	\sigma = \sqrt{\mathbf{w_T}  \cdot \Sigma \cdot \mathbf{w}}
+$$
+
+Where $\sigma$ is the standard deviation of the portfolio, $\Sigma$ is the covariance matrix of the portfolio, and vector $\mathbf{w}$ is the weight of the portfolio. So to solve the given problem, the vector $\mathbf{w}$ is defined as 
+
+$$
+\mathbf{w} \ = \ (w_{cash},w_{bitcoin},w_{gold})
+$$
+
+Where $w_{cash}$, $w_{bitcoin}$, and $w_{gold}$ is the weight in the portfolio for cash, bitcoin and gold, respectively. 
+
+To measure the return of the portfolio, we use the annualized return of the portfolio.
+
+\begin{figure}[H]
+	\centering{\includegraphics[width=8.0cm]{figures/markowiz_sim.png}}
+	\caption{Application of Markowiz Theory}
+	\label{figure:markowiz}
+\end{figure}
+
+Using the mean-variance analysis, we try to find a portfolio that minimize the risk and maximize the return. In our model, we use the Monte-Carlo method to simulate the positions of bitcoin and gold. The result of the simulation is plotted in Figure \ref{figure:markowiz}.
+We can conclude from the figure that if the trader is looking for a higher Sharpe Ratio, we should look for the point with the largest value of the vertical coordinate over the horizontal coordinate, or on the top-left area of the figure.
+Extracting the portfolio data behind this point, we find that most portfolios with a Sharpe Ratio of 10 or higher have a portfolio share of 95\% or more in bitcoin.
+Therefore, we conclude to invest bitcoin as much as possible in the whole portfolio. When both gold and bitcoin are on an upward trend, traders are supposed to buy more bitcoin for their portfolio to achieve a high expected return.
+
 
 \subsubsection{Rating Gold and Bitcoin}
 
 Based on the closing price every day, we first calculates the required normalized factors using including the change today, and the average change of 15 days and the bias, for both bitcoin and gold. Then our model predict the price the next day with ARIMA model.
-	
+
 Then, we calculate the indicators with the formula below for bitcoin and gold. 
-	
-	
+
+
 \begin{align*}
-Trend \ indicator &= TI = 0.7 \times 30 \ day's \ average change \ + \ 0.3 \times 20 \ day's \ average \ bias \\
-Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
+	Trend \ indicator &= TI = 0.7 \times 30 \ day's \ average change \ + \ 0.3 \times 20 \ day's \ average \ bias \\
+	Risk \ indicator &= RI = 0.4 \times Normalized \ 15 \ day's \ average \ change + 0.6 \times bias
 \end{align*}
-	
-Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz's asset portfolio model and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
-	
+
+Then we compose $TI$ and $RI$ linearly with ratios chosen according to Markowiz portfolio theory and then normalize it to get our main factor ($MF$) for bitcoin and gold. 
+
 We set following thresholds for selling or buying bitcoin and gold in Table \ref{table:threshold}.
-	
+
 \begin{table}[H]
-		\renewcommand{\arraystretch}{1.5}
-		\caption{Trading Thresholds.}
-		\label{table:threshold}
-		\begin{center}
-			{\footnotesize
-				\begin{tabular}{c c c}
-					\toprule
-					{ } & {Bitcoin} & {Gold} \\
-					\midrule
-					Buy($BS$) & 0.775 & 0.57 \\
-					Sell($SS$) & 0.55 & 0.3 \\
-					\bottomrule
-			\end{tabular}}
-		\end{center}	
+	\renewcommand{\arraystretch}{1.5}
+	\caption{Trading Thresholds.}
+	\label{table:threshold}
+	\begin{center}
+		{\footnotesize
+			\begin{tabular}{c c c}
+				\toprule
+				{ } & {Bitcoin} & {Gold} \\
+				\midrule
+				Buy($BS$) & 0.775 & 0.57 \\
+				Sell($SS$) & 0.55 & 0.3 \\
+				\bottomrule
+		\end{tabular}}
+	\end{center}	
 \end{table}
-	
+
 Then, we trade bitcoin and gold subject to the following rules.
-	
+
 \begin{center}
-		\begin{tabular}{ |c|c|c|c| } 
-			\hline
-			& $MF_{bitcoin} > BS_{bitcoin}$ & $Others$ & $MF_{bitcoin} < SS_{bitcoin}$ \\ 
-			\hline
-			$MF_{gold} > BS_{gold}$ & \textbf{\textit{Further Judgment Required}}  & Buy gold & Sell bitcoin and buy gold  \\ 
-			\hline
-			Others & Buy bitcoin & Do nothing & Sell bitcoin \\
-			\hline
-			$MF_{gold} < SS_{gold}$ & Sell gold and buy bitcoin & Sell gold & Sell both \\ 
-			\hline
-		\end{tabular}
+	\begin{tabular}{ |c|c|c|c| } 
+		\hline
+		& $MF_{bitcoin} > BS_{bitcoin}$ & $Others$ & $MF_{bitcoin} < SS_{bitcoin}$ \\ 
+		\hline
+		$MF_{gold} > BS_{gold}$ & \textbf{\textit{Further Judgment Required}}  & Buy gold & Sell bitcoin and buy gold  \\ 
+		\hline
+		Others & Buy bitcoin & Do nothing & Sell bitcoin \\
+		\hline
+		$MF_{gold} < SS_{gold}$ & Sell gold and buy bitcoin & Sell gold & Sell both \\ 
+		\hline
+	\end{tabular}
 \end{center}
-	
+
 When further judgment is required, we come up with the following factor $F$ 
-	
+
 $$
 F=2.5 \times (MF_{bitcoin}-BS_{bitcoin})-(MF_{gold}-BS_{gold})
 $$
-	
-Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$.
 
-\subsubsection{Position Management}
-
-
-
-\begin{figure}[H]
-	\centering{\includegraphics[width=8.0cm]{figures/markowiz_sim.png}}
-	\caption{Application of Markowiz Model}
-	\label{figure:markowiz}
-\end{figure}
-
-
+Then, our model recommend buying gold when $F<0$ and buying bitcoin when $F>0$. In the above formula, the ratio $2.5$ comes from the weights that reach the maximum in return that we find in the previous sub-section \nameref{sec:pos_management}.
 
 %%%%%%%%%%%%%%%%%
 \section{Results and Solutions}
@@ -579,7 +600,7 @@ By changing commissions and recalculating the total assets we get, we plot Figur
 \begin{enumerate}
 	\item Commissions may influence the equity change in the end, but the range is considered small, which reveals great stability of our model.
 	
-	\item From the figure we plot, we find that commissions for bitcoins have a stronger impact on the income. It is because to reach higher income, we hold more bitcoins so that when commissions go higher, we are charged much more.
+	\item From the figure we plot, we find that commissions for bitcoin have a stronger impact on the income. It is because to reach higher income, we hold more bitcoin so that when commissions go higher, we are charged much more.
 	
 	\item The given commissions is higher than the commissions in the real world, 0.02\% for bitcoin and 0.05\% for gold. When choosing the thresholds for trading, we can choose more suitable parameters and trade in lower frequencies to reduce frictional costs.
 \end{enumerate}
@@ -596,9 +617,9 @@ The models have the following strengths:
 \begin{itemize}
 \item \textbf{Our model yields considerable income}
 
-\item \textbf{Our model do not involve artificial neural network, which saves computational resources.}
+\item \textbf{Our model do not involve artificial neural network, which saves computational resources and improves interpretability.}
 
-\item \textbf{Our model build up a good system to assess a financial asset.}
+\item \textbf{Our model build up a fair system to assess a financial asset.}
 
 \item \textbf{Our model can be generalized to all problems in trading.}
 
@@ -620,7 +641,7 @@ Though our model performs well, the models have following weaknesses:
 \section{Conclusions}
 \label{Conclusions}
 
-In this paper, we build a \Predictor based predictor and the rating-based decision maker to enhance the income of trading cash, gold, and bitcoins. First, we preprocess the data and calculate various factors. Then, we do feature engineering by finite difference to deal with non-stationarity. After that, we use a ARIMA(4,1,4) predictor to predict the price in the future. Finally, we design a rating system and then derive our main factor to decide whether to buy, hold, or sell bitcoin and gold, and our strategies is test with Markowiz's  asset portfolio model. Sensitive tests  are carried out to find that our model will remain stable when commissions change. We measured our model by performance indicators like annualized return, retracement, and Sharpe ratio. Our model yields satisfying results.
+In this paper, we build a \Predictor based predictor and the rating-based decision maker to enhance the income of trading gold, and bitcoin. First, we preprocess the data and calculate various factors. Then, we do feature engineering by finite difference to deal with non-stationarity. After that, we use a ARIMA(4,1,4) predictor to predict the price in the future. Finally, we design a rating system and then derive our main factor to decide whether to buy, hold, or sell bitcoin and gold, and our strategies is test with Markowiz portfolio theory. Sensitive tests  are carried out to find that our model will remain stable when commissions change. We measured our model by performance indicators like annualized return, retracement, and Sharpe ratio. Our model yields satisfying results.
 
 
 
@@ -751,7 +772,7 @@ With above strategies, our model achieve great income. The performance of our mo
 \end{table}
 
 
-We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoins, and we firmly believe that our model can be utilized in your tradings to maximize your income. Feel free to contact us for further information on the proposal.
+We appreciate this opportunity to help you to build up a trading strategy for cash, gold and bitcoin, and we firmly believe that our model can be utilized in your tradings to maximize your income. Feel free to contact us for further information on the proposal.
 
 Sincerely yours
 
