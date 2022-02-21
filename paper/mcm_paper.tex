@@ -47,8 +47,7 @@
 %%%%%%%%%%%%%
 
 \newcommand{\Predictor}{ARIMA }
-\newcommand{\Decision}{Markowitz mean-variance model }
-\newcommand{\DecisionAssessment}{Sharp ratio}
+
 
 %% Page header and footer setting
 \usepackage{fancyhdr}
@@ -105,20 +104,22 @@
 % Enter your summary here replacing the (red) text
 % Replace the text from here ...
 
-Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible combo. Our team is requested to determine the trading strategies for a trader which uses only the past daily prices. 
+Traders buy and sell volatile assets to maximize their income. Recently, with the growing interest of the public in cryptocurrencies, gold and bitcoin become a feasible kind of portfolio. But what comes with interest is risk. How can we do our best to increase our income? Our team is requested to determine the trading strategies for a trader which utilizes only the past daily prices. 
 
-As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. The predictor shows good capability to accurately predict the price of future.
+As for problem 1, First we plot the price data and found that they show non-stationarity in the sense of mean. We therefore utilize \Predictor to predict the prices of gold and bitcoin. Our choice of parameters is ARIMA(4,1,4) for both bitcoin and gold. The predictor shows good capability to accurately predict the price of future.
 
-To find the best timing to sell and buy the two assets, we first rate them with the percentage change, based on predicted value. Then we accomplish position management with Markowitz model. The choice we made yields good income.
+To find the best timing to sell and buy the two assets, we first rate them with the our well-designed rating system by various factors like changes in value, moving averages, and biases. Then from the factors our model further calculates our indicator for risk and trend. From these two indicators, our main factor can give us enough information to make trading decisions.
 
-As for problem 2, we
+To make trading decisions, we furthermore set thresholds based on our observations and experiments in our data and we balance our portfolio by the Markowiz's asset portfolio model.
 
-As for problem 3, we
+As for problem 2, we dig into the application of Markowiz's asset portfolio model to the data. By plotting a thermodynamic diagram for various asset allocation schemes, we find that our scheme yields nearly the best result that is possibly for us to get. Moreover, it indicates that we achieve better risk management.
+
+As for problem 3, we test our model by change the commissions for trading bitcoin and gold. By visualizing the result we find that commissions do not have a noteworthy impact on the amount of income of our model.
 
 Finally
 
 
-\textbf{Key words:} 
+\textbf{Key words: ARIMA, Quantitative Trading, Regression, Trading Strategy} 
 
 \end{spacing}
 
@@ -177,9 +178,9 @@ With the popularity of cryptocurrencies and the simplification of trading method
 	to that day, and calculate how much the initial \$1000 investment is worth on 9/10/2021 using the 
 	model and strategy.
 	
-	\item Present evidence that your model provides the best strategy.
+	\item Present evidence that this model provides the best strategy.
 	
-	\item Determine how sensitive the strategy is to transaction costs and analyze how the costs
+	\item Find how sensitive the strategy is to transaction costs and analyze how the costs
 	affect the strategy and results.
 	
 \end{itemize}
@@ -188,9 +189,9 @@ With the popularity of cryptocurrencies and the simplification of trading method
 
 \begin{enumerate}
 	\item \textbf{To predict the prices of bitcoin and gold and make decision, we use \textit{\Predictor} (Autoregressive integrated moving average).}
-	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt this approach to predict the prices, which is proved to give satisfying results.
+	To predict future prices with existing data is a difficult problem because too many factors may influence the prices. The international situation, national policies, and even social media can have a considerable impact on the prices. Moreover, the data shows non-stationarity. To take as many factors as possible and predict accurately according to their inner laws, we adopt \Predictor to predict the prices, which is proved to give satisfying results.
 	
-	\item \textbf{To make decision on trading, we adopt \textit{\Decision} and \textit{\DecisionAssessment}. }
+	\item \textbf{To make decision on trading, design a comprehensive rating system to make decisions on trading.} Based on various factor drawn out from price data, we compute our main factor by compose the trend indicator and risk indicator. We then set thresholds based on both our observations and findings in data. Then we decide the final strategies Markowiz's asset portfolio model.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%
